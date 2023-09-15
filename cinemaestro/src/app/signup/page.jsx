@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import background from "./background.svg";
-import "./log-styles.css";
+import "../log-styles.css";
 
 export default function Home() {
   return (
@@ -10,7 +9,7 @@ export default function Home() {
         <title>CINEMAESTRO</title>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <link rel="stylesheet" href="log-styles.css"></link>
+        <link rel="stylesheet" href="./log-styles.css"></link>
       </head>
       <body>
         <div className="title-box">
@@ -18,11 +17,15 @@ export default function Home() {
           <h1 className="login-title">CineMaestro</h1>
         </div>
         <div className="login-box">
-          <h2>Iniciar sesión</h2>
+          <h2>Registrarse</h2>
           <form>
-            <div className="user-box">
+          <div className="user-box">
               <input type="text" name="" required="" />
               <label>Correo</label>
+            </div>
+            <div className="user-box">
+              <input type="text" name="" required="" />
+              <label>Usuario</label>
             </div>
             <div className="user-box">
               <input type="password" name="" required="" />
@@ -36,7 +39,7 @@ export default function Home() {
                 <span></span>
                 Aceptar
               </Link>
-              <Link className='registrarse' href="/signup">Registrarse</Link>
+              <Link className='iniciar' href="/">Iniciar sesión</Link>
             </div>
           </form>
         </div>
