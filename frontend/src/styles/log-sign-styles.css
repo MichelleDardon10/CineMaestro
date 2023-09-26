@@ -116,19 +116,22 @@
     }
     
     .iniciar {
+
         white-space: nowrap;
         position: relative;
         display: inline-block;
         text-decoration: none;
-        width: 36%;
-        height: 22px;
-        padding: 5px 22px;
+        width: 45%;
+        height: 35px;
+        padding: 5px 10px;
         color: #fff;
+        background-color: rgba(0,0,0,.5);
         font-size: 14px;
         transition: .5s;
         margin-top: 48px;
         margin-left: 25px;
         letter-spacing: 3px;
+        border: none;
     }
     
     .registrarse:hover {
