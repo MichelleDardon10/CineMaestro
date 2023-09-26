@@ -9,8 +9,7 @@ const Signup = ({ onSwitchToLogin }) => {
 
   const handleSignup = (e) => {
     e.preventDefault();
-    // Aquí puedes agregar la lógica para el registro
-    // Por ejemplo, enviar una solicitud al servidor
+    //
     console.log('Registrarse con:', email, user, password);
   };
 
@@ -43,7 +42,6 @@ const Signup = ({ onSwitchToLogin }) => {
             <span></span>
             Aceptar
           </a>
-          {/* <RegisterButton /> */}
           <button onClick={onSwitchToLogin} className='iniciar' >Iniciar Sesión</button>
         </div>
       </form>
