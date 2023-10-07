@@ -1,31 +1,36 @@
-/* Styling for the title */
-.title {
-  background-color: #333; /* Set background color to dark gray */
-  padding: 20px; /* Add some padding to the title */
-  text-align: center; /* Center-align the text */
-}
-
-/* Styling for individual posts */
+/* Home-style.css */
 .posts {
-  background-color: #fff; /* Set background color to white */
-  border: 1px solid #ddd; /* Add a border with a light gray color */
-  margin: 20px 0; /* Add margin to space out the posts */
-  padding: 10px; /* Add padding to the posts */
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  margin: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Styling for post titles */
-.posts .title {
-  font-size: 24px; /* Set font size for post titles */
-  font-weight: bold; /* Make the titles bold */
+.title {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 5px;
 }
 
-/* Styling for post body text */
-.posts .body {
-  font-size: 16px; /* Set font size for post body text */
+.body {
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
-/* Styling for post footer (username) */
-.posts .footer {
-  font-size: 14px; /* Set font size for the username */
-  color: #777; /* Set text color to a light gray */
+.footer {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.corner {
+  font-size: 14px;
+  color: #333;
+  background-color: #ffc107;
+  border-radius: 3px;
+  padding: 2px 5px;
+  display: inline-block;
+  margin-top: 5px;
 }

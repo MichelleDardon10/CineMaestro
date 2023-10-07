@@ -4,7 +4,7 @@ import "../styles/Home-style.css";
 import { useEffect, useState } from "react";
 
 const textStyle = {
-  color: "white", // Set the text color to white
+  color: "black", // Set the text color to white
 };
 
 export function Home() {
@@ -25,6 +25,7 @@ export function Home() {
             <div className="title"> {value.title} </div>
             <div className="body"> {value.postText} </div>
             <div className="footer"> {value.username} </div>
+            <div className="corner"> {value.rating} </div>
           </div>
         );
       })}
