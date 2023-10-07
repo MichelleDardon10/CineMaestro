@@ -1,0 +1,31 @@
+/* Styling for the title */
+.title {
+  background-color: #333; /* Set background color to dark gray */
+  padding: 20px; /* Add some padding to the title */
+  text-align: center; /* Center-align the text */
+}
+
+/* Styling for individual posts */
+.posts {
+  background-color: #fff; /* Set background color to white */
+  border: 1px solid #ddd; /* Add a border with a light gray color */
+  margin: 20px 0; /* Add margin to space out the posts */
+  padding: 10px; /* Add padding to the posts */
+}
+
+/* Styling for post titles */
+.posts .title {
+  font-size: 24px; /* Set font size for post titles */
+  font-weight: bold; /* Make the titles bold */
+}
+
+/* Styling for post body text */
+.posts .body {
+  font-size: 16px; /* Set font size for post body text */
+}
+
+/* Styling for post footer (username) */
+.posts .footer {
+  font-size: 14px; /* Set font size for the username */
+  color: #777; /* Set text color to a light gray */
+}

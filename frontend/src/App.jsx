@@ -38,6 +38,7 @@ export function App() {
               }
             />
             <Route path="/Home" element={<Home />} />
+            // aqui ponen las rutas para diferentes paginas que tengamos
           </Routes>
         </Router>
       </div>

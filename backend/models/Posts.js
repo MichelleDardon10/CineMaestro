@@ -14,10 +14,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   });
   return Posts;
 };
