@@ -13,7 +13,7 @@ export function Home() {
 
   const [listOfPosts, setListOfPosts] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5174/Posts").then((response) => {
+    axios.get("http://localhost:5174/posts").then((response) => {
       setListOfPosts(response.data);
     });
   }, []);

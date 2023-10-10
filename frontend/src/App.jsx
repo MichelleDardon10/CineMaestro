@@ -6,38 +6,14 @@ import Signup from "./views/Signup";
 import Home from "./views/Home";
 
 export function App() {
-  const [showLogin, setShowLogin] = useState(true);
-
-  const switchToLogin = () => {
-    setShowLogin(true);
-  };
-
-  const switchToSignup = () => {
-    setShowLogin(false);
-  };
-
-  // const [isLogin, setIsLogin] = useState(true);
-
-  // const handleToggle = () => {
-  //   setIsLogin(!isLogin);
-  // };
-
   return (
     <>
       <div className="App">
         <Router>
           <Routes>
-            <Route
-              path="/"
-              element={
-                showLogin ? (
-                  <Login onSwitchToSignup={switchToSignup} />
-                ) : (
-                  <Signup onSwitchToLogin={switchToLogin} />
-                )
-              }
-            />
-            <Route path="/Home" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Login />} />
             // aqui ponen las rutas para diferentes paginas que tengamos
           </Routes>
         </Router>
