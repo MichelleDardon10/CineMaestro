@@ -1,17 +1,26 @@
-import React, { useState } from "react";
+import { Formik, Form, Field } from "formik";
+import { Link } from "react-router-dom";
+import * as Yup from "yup";
 import "../styles/log-sign-styles.css";
+import axios from "axios";
 
-const Signup = ({ onSwitchToLogin }) => {
-  const [email, setEmail] = useState("");
-  const [user, setUser] = useState("");
-  const [password, setPassword] = useState("");
-
-  const handleSignup = (e) => {
-    e.preventDefault();
-    //
-    console.log("Registrarse con:", email, user, password);
+function Signup() {
+  const initialValues = {
+    username: "",
+    password: "",
   };
 
+  const validationSchema = Yup.object().shape({
+    username: Yup.string().required(),
+    password: Yup.string().required(),
+  });
+
+  const onSubmit = (data) => {
+    axios.post("http://localhost:5174/auth", data).then(() => {
+      console.log(data);
+    });
+  };
+  //TODO Asegurar los parameros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo
   return (
     <>
       <div className="title-box">
@@ -20,47 +29,33 @@ const Signup = ({ onSwitchToLogin }) => {
       </div>
       <div className="login-box">
         <h2>Registrarse</h2>
-        <form onSubmit={handleSignup}>
-          <div className="user-box">
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label>Correo</label>
-          </div>
-          <div className="user-box">
-            <input
-              type="text"
-              value={user}
-              onChange={(e) => setUser(e.target.value)}
-            />
-            <label>Usuario</label>
-          </div>
-          <div className="user-box">
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <label>Contraseña</label>
-          </div>
-          <div class="signup-signup">
-            <a class="aceptar" href="#">
-              <span></span>
-              <span></span>
-              <span></span>
-              <span></span>
-              Aceptar
-            </a>
-            <button onClick={onSwitchToLogin} className="iniciar">
-              Iniciar Sesión
-            </button>
-          </div>
-        </form>
+        <Formik
+          initialValues={initialValues}
+          onSubmit={onSubmit}
+          validationSchema={validationSchema}
+        >
+          <Form>
+            <div className="user-box">
+              <Field type="text" id="user" name="username" />
+              <label>Usuario</label>
+            </div>
+            <div className="user-box">
+              <Field type="password" id="password" name="password" />
+              <label>Contraseña</label>
+            </div>
+            <div className="signup-signup">
+              <button className="iniciar" type="submit">
+                Aceptar
+              </button>
+              <Link to="/login">
+                <button className="iniciar">Iniciar sesion</button>
+              </Link>
+            </div>
+          </Form>
+        </Formik>
       </div>
     </>
   );
-};
+}
 
 export default Signup;

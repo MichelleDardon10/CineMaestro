@@ -34,3 +34,19 @@
   display: inline-block;
   margin-top: 5px;
 }
+
+/* App.css */
+.login-link {
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #333; /* Your preferred color */
+  background-color: #ffc107;
+  border-radius: 3px;
+  padding: 5px 10px;
+  margin-right: 10px; /* Add some space between links */
+}
+
+.login-link:hover {
+  background-color: #ffdb58; /* Change color on hover */
+}

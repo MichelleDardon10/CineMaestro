@@ -10,10 +10,16 @@ export function App() {
     <>
       <div className="App">
         <Router>
+          <Link to="/login" className="login-link">
+            Login
+          </Link>
+          <Link to="/" className="login-link">
+            Home
+          </Link>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
             // aqui ponen las rutas para diferentes paginas que tengamos
           </Routes>
         </Router>
