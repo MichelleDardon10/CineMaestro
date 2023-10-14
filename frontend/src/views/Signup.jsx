@@ -1,5 +1,5 @@
 import { Formik, Form, Field } from "formik";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import "../styles/log-sign-styles.css";
 import axios from "axios";
@@ -14,6 +14,12 @@ function Signup() {
     username: Yup.string().required(),
     password: Yup.string().required(),
   });
+
+  let history = useNavigate();
+
+  const switchToLogin = () => {
+    history("/login");
+  };
 
   const onSubmit = (data) => {
     axios.post("http://localhost:5174/auth", data).then(() => {
@@ -47,9 +53,9 @@ function Signup() {
               <button className="iniciar" type="submit">
                 Aceptar
               </button>
-              <Link to="/login">
-                <button className="iniciar">Iniciar sesion</button>
-              </Link>
+              <button className="iniciar" onClick={switchToLogin}>
+                Iniciar sesion
+              </button>
             </div>
           </Form>
         </Formik>

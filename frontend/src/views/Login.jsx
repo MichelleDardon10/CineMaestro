@@ -21,6 +21,11 @@ function Login() {
       }
     });
   };
+
+  const switchToSignUp = () => {
+    history("/signup");
+  };
+
   //TODO Asegurar los parameros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo
   return (
     <>
@@ -56,9 +61,9 @@ function Login() {
           <button className="iniciar" onClick={login}>
             Aceptar
           </button>
-          <Link to="/signup">
-            <button className="iniciar">Registrarse</button>
-          </Link>
+          <button className="iniciar" onClick={switchToSignUp}>
+            Registrarse
+          </button>
         </div>
       </div>
     </>
