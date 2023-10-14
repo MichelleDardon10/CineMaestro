@@ -17,6 +17,8 @@ const postRouter = require("./routes/Posts");
 app.use("/posts", postRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
+const ratingsRouter = require("./routes/Ratings");
+app.use("/ratings", ratingsRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(5174, () => {

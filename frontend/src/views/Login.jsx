@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "../styles/log-sign-styles.css";
 import axios from "axios";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
