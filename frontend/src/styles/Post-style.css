@@ -1,37 +1,81 @@
+/* Post-style.css */
+
 .postPage {
-  max-width: 600px;
-  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 20px;
-  border: 1px solid #e0e0e0;
+}
+
+.post {
+  background-color: #f0f0f0;
+  padding: 20px;
   border-radius: 5px;
-  background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  width: 80%;
+  text-align: center;
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 600;
-  margin-bottom: 10px;
-  color: #333;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .body {
-  font-size: 18px;
-  line-height: 1.6;
-  margin-bottom: 20px;
-  color: #555;
+  font-size: 16px;
+  margin-top: 10px;
 }
 
 .footer {
   font-size: 14px;
-  color: #777;
+  color: #888;
+  margin-top: 10px;
 }
 
 .corner {
-  font-size: 14px;
-  color: #777;
-  background-color: #f0f0f0;
-  padding: 5px 10px;
-  border-radius: 3px;
-  display: inline-block;
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff; /* Blue color for the rating */
+}
+
+.ratings {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ratingBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+input {
+  width: 60px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  margin-top: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+.avgRating {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff; /* Blue color for the average rating */
 }
