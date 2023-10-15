@@ -6,6 +6,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
     },
+    username: {
+      type: DataTypes.String,
+      allowNull: false,
+    },
   });
   return Ratings;
 };

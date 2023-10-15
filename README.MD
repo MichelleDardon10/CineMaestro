@@ -1,3 +1,12 @@
-para correr server primero cd backend, luego npm run devStart
-para correr frontend primero cd frontend, luego npm run dev
-docker-compose up -d
+## Correr Server (Backend)
+
+Levantar el contenedor abriendo docker desktop y en /cinemaestro: docker-compose up -d
+luego cd backend y en la terminal: npm run devStart
+
+## Correr Cliente (Frontend)
+
+cd frontend, luegoen la terminal: npm run dev
+
+## Para migrar base de datos
+
+Ir a backend (cd backend ) y correr: npx sequelize-cli db:migrate

@@ -1,11 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/log-sign-styles.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../helpers/AuthContext";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const { setAuthState } = useContext(AuthContext);
 
   let history = useNavigate();
 
@@ -16,8 +18,9 @@ function Login() {
       if (response.data.error) {
         alert(response.data.error);
       } else {
-        sessionStorage.setItem("accesToken", response.data);
-        history.push("/");
+        localStorage.setItem("accesToken", response.data);
+        setAuthState = true;
+        history("/");
       }
     });
   };

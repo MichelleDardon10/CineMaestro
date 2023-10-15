@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { Ratings } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddleware");
 
 router.get("/:postId", async (req, res) => {
   const postId = req.params.postId;
@@ -8,8 +9,10 @@ router.get("/:postId", async (req, res) => {
   res.json(allRatings);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", validateToken, async (req, res) => {
   const rating = req.body;
+  const username = req.user.username;
+  rating.username = username;
   await Ratings.create(rating);
   res.json(rating);
 });

@@ -7,8 +7,8 @@ function Post() {
   let { id } = useParams();
   const [postObject, setPostObject] = useState({});
   const [ratings, setRatings] = useState([]);
-  const [newRating, setNewRating] = useState([]);
-  const [averageRating, setAverageRating] = useState(null);
+  const [newRating, setNewRating] = useState("");
+  const [averageRating, setAverageRating] = useState("");
 
   useEffect(() => {
     axios.get(`http://localhost:5174/posts/byId/${id}`).then((response) => {
@@ -24,21 +24,58 @@ function Post() {
           0
         );
         const avgRating = totalRatings / response.data.length;
-        setAverageRating(avgRating);
+        setAverageRating(avgRating.toFixed(1));
       } else {
         setAverageRating("No hay calificaciones todavía");
       }
     });
   }, []);
 
+  //TODO solo dejar un rating por usuario
   const addRating = () => {
+    const newRatingInt = parseFloat(newRating, 10);
+    console.log(Number.isInteger(newRatingInt));
+    if (
+      !Number.isInteger(newRatingInt) ||
+      newRatingInt < 0 ||
+      newRatingInt > 10
+    ) {
+      console.log();
+      alert("Por favor, ingrese un número entero entre 0 y 10.");
+      return;
+    }
     axios
-      .post("http://localhost:5174/ratings", {
-        rating: newRating,
-        PostId: id,
-      })
+      .post(
+        "http://localhost:5174/ratings",
+        {
+          rating: newRatingInt,
+          PostId: id,
+        },
+        {
+          headers: {
+            accesToken: localStorage.getItem("accesToken"),
+          },
+        }
+      )
       .then((response) => {
-        console.log("Rating added");
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          const ratingToAdd = { rating: newRatingInt };
+          setRatings([...ratings, ratingToAdd]);
+
+          if (ratings && ratings.length > 0) {
+            const totalRatings = [...ratings, ratingToAdd].reduce(
+              (sum, ratingJson) => sum + ratingJson.rating,
+              0
+            );
+            const avgRating = totalRatings / (ratings.length + 1); // Increment the count
+            setAverageRating(avgRating.toFixed(1));
+          } else {
+            setAverageRating(newRatingInt.toFixed(1));
+          }
+          setNewRating("");
+        }
       });
   };
 
@@ -53,8 +90,9 @@ function Post() {
       <div className="ratings">
         <div className="ratingBox">
           <input
-            type="int"
-            placeholder="8"
+            type="number"
+            placeholder=""
+            value={newRating}
             onChange={(e) => {
               setNewRating(e.target.value);
             }}
@@ -62,10 +100,7 @@ function Post() {
           <button onClick={addRating}>Deja tu Calificación!</button>
         </div>
         <div className="Rating promedio">
-          <div className="avgRating">
-            {" "}
-            Calificación general: {averageRating}{" "}
-          </div>
+          <div className="avgRating">Calificación general: {averageRating}</div>
         </div>
       </div>
     </div>
