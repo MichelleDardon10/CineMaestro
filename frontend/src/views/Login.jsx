@@ -9,27 +9,33 @@ function Login() {
   const [password, setPassword] = useState("");
   const { setAuthState } = useContext(AuthContext);
 
-  let history = useNavigate();
+  let navigate = useNavigate();
 
   const login = () => {
     const data = { username: username, password: password };
-    console.log(data);
+    //Chequea si el usuario existe en la base de datos
     axios.post("http://localhost:5174/auth/login", data).then((response) => {
+      //Da un error si no está
       if (response.data.error) {
         alert(response.data.error);
+        //Si si está regresa un token y lo guarda en el localStorage,también guarda su información según el token.
       } else {
-        localStorage.setItem("accesToken", response.data);
-        setAuthState = true;
-        history("/");
+        localStorage.setItem("accessToken", response.data.token);
+        setAuthState({
+          username: response.data.username,
+          id: response.data.id,
+          status: true,
+        });
+        navigate("/");
       }
     });
   };
 
   const switchToSignUp = () => {
-    history("/signup");
+    navigate("/signup");
   };
 
-  //TODO Asegurar los parameros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo
+  //TODO Asegurar los parametros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo
   return (
     <>
       <div className="title-box">

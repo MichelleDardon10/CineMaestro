@@ -1,13 +1,15 @@
+//Código con la lógica de revisión de si es válido un token o no
+
 const { verify } = require("jsonwebtoken");
 
 const validateToken = (req, res, next) => {
-  const accesToken = req.header("accesToken");
+  const accessToken = req.header("accessToken");
 
-  if (!accesToken)
+  if (!accessToken)
     return res.json({ error: "El usuario no ha iniciado sesion" });
 
   try {
-    const validToken = verify(accesToken, "password");
+    const validToken = verify(accessToken, "password");
 
     req.user = validToken;
 

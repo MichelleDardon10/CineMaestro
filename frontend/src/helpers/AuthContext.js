@@ -1,4 +1,7 @@
 import { createContext } from "react";
 
-//TODO context API
-export const AuthContext = createContext("");
+export const AuthContext = createContext({
+  username: "",
+  id: 0,
+  status: false,
+});

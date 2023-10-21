@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import Login from "./views/Login";
@@ -6,7 +6,6 @@ import Signup from "./views/Signup";
 import Home from "./views/Home";
 import Post from "./views/Post";
 import { AuthContext } from "./helpers/AuthContext";
-import { useState, useEffect } from "react";
 import axios from "axios";
 
 //TODO LA CONSTANTE AUTHSTATE PUEDE SER UN OBJETO CON LA INFO DE USUARIO
@@ -19,9 +18,9 @@ export function App() {
 
   useEffect(() => {
     axios
-      .get("http://localhost/5174/auth/check", {
+      .get("http://localhost:5174/auth/check", {
         headers: {
-          accesToken: localStorage.getItem("accesToken"),
+          accessToken: localStorage.getItem("accessToken"),
         },
       })
       .then((response) => {
@@ -38,7 +37,7 @@ export function App() {
   }, []);
 
   const logout = () => {
-    localStorage.removeItem("accesToken");
+    localStorage.removeItem("accessToken");
     setAuthState({
       username: "",
       id: 0,
@@ -51,6 +50,7 @@ export function App() {
       <div className="App">
         <AuthContext.Provider value={{ authState, setAuthState }}>
           <Router>
+            {/* Este if revisa si no está logeado que muestre login y si sí que muestre logout*/}
             <div className="navbar">
               {!authState.status ? (
                 <>
@@ -59,7 +59,7 @@ export function App() {
               ) : (
                 <button onClick={logout}>Cerrar sesión </button>
               )}
-
+              <h2>{authState.username}</h2>
               <Link to="/">Home</Link>
             </div>
             <Routes>
@@ -67,7 +67,6 @@ export function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/post/:id" element={<Post />} />
-              // aqui ponen las rutas para diferentes paginas que tengamos
             </Routes>
           </Router>
         </AuthContext.Provider>

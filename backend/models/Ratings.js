@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     username: {
-      type: DataTypes.String,
+      type: DataTypes.STRING,
       allowNull: false,
     },
   });

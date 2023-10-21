@@ -18,6 +18,7 @@ router.post("/", async (req, res) => {
   res.json("FUNCIONA");
 });
 
+//Aqui se crea un token y se regresa si y solo si el usuario existe en la base de datos, osea que puede hacer login
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
   const user = await Users.findOne({ where: { username: username } });
@@ -30,16 +31,16 @@ router.post("/login", async (req, res) => {
   bcrypt.compare(password, user.password).then((match) => {
     if (!match) res.json({ error: "Contraseña incorrecta" });
     else {
-      const accesToken = sign(
+      const accessToken = sign(
         { username: user.username, id: user.id },
         "password"
       );
-      res.json(accesToken);
+      res.json({ token: accessToken, username: username, id: user.id });
     }
   });
 });
 
-router.get("/check", validateToken, (req, res) => {
+router.get("/check", validateToken, async (req, res) => {
   res.json(req.user);
 });
 
