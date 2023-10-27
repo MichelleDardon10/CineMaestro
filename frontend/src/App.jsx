@@ -5,9 +5,9 @@ import Login from "./views/Login";
 import Signup from "./views/Signup";
 import Home from "./views/Home";
 import Post from "./views/Post";
+import PlaylistPage from "./views/Playlist";
 import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
-
 //TODO LA CONSTANTE AUTHSTATE PUEDE SER UN OBJETO CON LA INFO DE USUARIO
 export function App() {
   const [authState, setAuthState] = useState({
@@ -61,12 +61,14 @@ export function App() {
               )}
               <h2>{authState.username}</h2>
               <Link to="/">Home</Link>
+              <Link to="/playlist">Playlist</Link>
             </div>
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/post/:id" element={<Post />} />
+              <Route path="/playlist" element={<PlaylistPage />} />
             </Routes>
           </Router>
         </AuthContext.Provider>

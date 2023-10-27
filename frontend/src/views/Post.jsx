@@ -13,8 +13,77 @@ function Post() {
   const [newRating, setNewRating] = useState("");
   const [averageRating, setAverageRating] = useState("");
   const [userRating, setUserRating] = useState("");
+  const [ratingId, setRatingId] = useState("");;
+  const [newComment, setNewComment] = useState("");
+  const [commentList, setCommentList] = useState([]);
+  
+
+  const handleRemoveRating = (id) => {
+  
+    // Send a DELETE request to the server to delete the playlist
+    axios
+      .delete(`http://localhost:5174/ratings/${id}`)
+      .then((response) => {
+          // Refresh the page
+          window.location.reload();
+
+      })
+      .catch((error) => {
+        console.error('Error deleting playlist:', error);
+      });
+  };
+
+  const handleCreateComment = () => {
+    console.log(newComment)
+    if (newComment) {
+      axios
+        .post('http://localhost:5174/comments', { comment: newComment, username: id})
+        .then((response) => {
+            axios
+            .get('http://localhost:5174/comments')
+            .then((response) => {
+                setCommentList(response.data); // Assuming the response data is an array of playlist names
+            })
+            .catch((error) => {
+                console.error('Error fetching comments:', error);
+            });
+        })
+        .catch((error) => {
+          console.error('Error creating comment:', error);
+        });
+    }
+  };
+
+  const handleRemoveComment = (id) => {
+  
+    // Send a DELETE request to the server to delete the playlist
+    axios
+      .delete(`http://localhost:5174/comments/${id}`)
+      .then((response) => {
+        axios
+            .get('http://localhost:5174/comments')
+            .then((response) => {
+                setCommentList(response.data); // Assuming the response data is an array of playlist names
+            })
+            .catch((error) => {
+                console.error('Error fetching playlists:', error);
+            });
+            })
+      .catch((error) => {
+        console.error('Error deleting playlist:', error);
+      });
+  };
 
   useEffect(() => {
+
+    axios
+      .get('http://localhost:5174/comments')
+      .then((response) => {
+        setCommentList(response.data); // Assuming the response data is an array of playlist names
+      })
+      .catch((error) => {
+        console.error('Error fetching comments:', error);
+      });
     //Llama al API y busca un post con el id que se envió al hacer click en Home
     axios.get(`http://localhost:5174/posts/byId/${id}`).then((response) => {
       setPostObject(response.data);
@@ -23,6 +92,7 @@ function Post() {
     //Llama al API y busca los ratings relacionado con el post que tiene en id
     axios.get(`http://localhost:5174/ratings/${id}`).then((response) => {
       setRatings(response.data);
+      setRatingId(response.data[0].id)
 
       //Lógica para hacer un promedio de rating.
       if (response.data && response.data.length > 0) {
@@ -105,9 +175,11 @@ function Post() {
           setNewRating("");
 
           setUserRating(newRatingInt);
+          window.location.reload();
         }
       });
   };
+
 
   return (
     <div className="postPage">
@@ -140,7 +212,36 @@ function Post() {
             cálificaciones
           </div>
           <div> mi calificación: {userRating} </div>
+          {ratings.length !== 0 && (
+            <button className="remove-button" onClick={() => handleRemoveRating(ratingId)}>
+              Remove
+            </button>
+          )}
         </div>
+      </div>
+      <div className="ratings">
+        <div className="ratingBox">
+          <input
+            type="string"
+            placeholder="place your comment"
+            value={newComment}
+            onChange={(e) => {
+              setNewComment(e.target.value);
+            }}
+          />
+          <button onClick={handleCreateComment}>add comment
+          </button>
+        </div>
+        <ul>
+        {commentList.map((comment, index) => (
+          <li key={index}>
+            <span className="title">{comment.comment}</span>
+            <button className="remove-button" onClick={() => handleRemoveComment(comment.id)}>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
       </div>
     </div>
   );
