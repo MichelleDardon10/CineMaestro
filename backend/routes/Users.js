@@ -44,4 +44,13 @@ router.get("/check", validateToken, async (req, res) => {
   res.json(req.user);
 });
 
+router.delete("/:userId", validateToken, async (req, res) => {
+  const userId = req.params.userId;
+  await Users.destroy({
+    where: {
+      id: userId,
+    },
+  });
+});
+
 module.exports = router;
