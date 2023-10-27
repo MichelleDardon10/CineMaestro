@@ -5,7 +5,7 @@ luego cd backend y en la terminal: npm run devStart
 
 ## Correr Cliente (Frontend)
 
-cd frontend, luegoen la terminal: npm run dev
+cd frontend, luego en la terminal: npm run dev
 
 ## Para migrar base de datos
 

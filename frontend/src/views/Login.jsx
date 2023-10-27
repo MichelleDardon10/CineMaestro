@@ -13,12 +13,12 @@ function Login() {
 
   const login = () => {
     const data = { username: username, password: password };
-    //Chequea si el usuario existe en la base de datos
+    // Chequea si el usuario existe en la base de datos
     axios.post("http://localhost:5174/auth/login", data).then((response) => {
-      //Da un error si no está
+      // Da un error si no está
       if (response.data.error) {
         alert(response.data.error);
-        //Si si está regresa un token y lo guarda en el localStorage,también guarda su información según el token.
+        // Si sí está, regresa un token y lo guarda en el localStorage, también guarda su información según el token.
       } else {
         localStorage.setItem("accessToken", response.data.token);
         setAuthState({
@@ -35,7 +35,12 @@ function Login() {
     navigate("/signup");
   };
 
-  //TODO Asegurar los parametros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo
+  const redirectToHome = () => {
+    navigate("/");
+  };
+
+  // TODO Asegurar los parámetros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo
+
   return (
     <>
       <div className="title-box">
@@ -43,7 +48,7 @@ function Login() {
         <h1 className="login-title">CineMaestro</h1>
       </div>
       <div className="login-box">
-        <h2>Iniciar sesion</h2>
+        <h2>Iniciar sesión</h2>
         <div className="user-box">
           <input
             type="text"
@@ -73,6 +78,9 @@ function Login() {
           <button className="iniciar" onClick={switchToSignUp}>
             Registrarse
           </button>
+        </div>
+        <div className="invitado-link" onClick={redirectToHome}>
+          Continuar como invitado
         </div>
       </div>
     </>

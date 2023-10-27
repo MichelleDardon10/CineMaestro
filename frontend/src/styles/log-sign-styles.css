@@ -29,7 +29,7 @@
   top: -5px;
   left: 54%;
   transform: translateX(-50%);
-  color: #fff;
+  color: #ffffff;
   font-size: 100px;
   text-align: center;
   letter-spacing: 2px;
@@ -253,4 +253,19 @@
   100% {
     bottom: 100%;
   }
+}
+
+
+.invitado-link {
+  color: #fff; 
+  cursor: pointer; 
+  font-size: 14px; 
+  margin-top: 20px; 
+  text-align: center; 
+  text-decoration: none; 
+  display: block; 
+}
+
+.invitado-link:hover {
+  color: #0077bb; 
 }
