@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 function MoviesForm() {
   const [movieData, setMovieData] = useState({
-    titulo: '',
-    director: '',
-    genero: '',
-    fechaEstreno: '',
+    titulo: "",
+    director: "",
+    genero: "",
+    fechaEstreno: "",
   });
 
   const handleChange = (e) => {
@@ -21,21 +21,29 @@ function MoviesForm() {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:5174/movies', movieData);
+      const response = await axios.post(
+        "http://localhost:5174/movies",
+        movieData,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
 
       if (response.status === 201) {
-        console.log('Película agregada exitosamente:', response.data.pelicula);
+        console.log("Película agregada exitosamente:", response.data.pelicula);
         setMovieData({
-          titulo: '',
-          director: '',
-          genero: '',
-          fechaEstreno: '',
+          titulo: "",
+          director: "",
+          genero: "",
+          fechaEstreno: "",
         });
       } else {
-        console.error('Error al agregar la película:', response.data.error);
+        console.error("Error al agregar la película:", response.data.error);
       }
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      console.error("Error al realizar la solicitud:", error);
     }
   };
 
@@ -88,5 +96,3 @@ function MoviesForm() {
 }
 
 export default MoviesForm;
-
-
