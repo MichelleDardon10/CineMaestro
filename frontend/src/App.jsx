@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
-import Login from "./views/Login";
+import Login from './views/Login';
 import Signup from "./views/Signup";
 import Home from "./views/Home";
 import Post from "./views/Post";
+import Navbar from './components/Navbar';
+import MoviesForm from "./views/MoviesForm";
+import Movies from './views/Movies';
 import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
 
@@ -50,23 +53,15 @@ export function App() {
       <div className="App">
         <AuthContext.Provider value={{ authState, setAuthState }}>
           <Router>
-            {/* Este if revisa si no está logeado que muestre login y si sí que muestre logout*/}
-            <div className="navbar">
-              {!authState.status ? (
-                <>
-                  <Link to="/login">Login</Link>
-                </>
-              ) : (
-                <button onClick={logout}>Cerrar sesión </button>
-              )}
-              <h2>{authState.username}</h2>
-              <Link to="/">Home</Link>
-            </div>
+            <Navbar authState={authState} logout={logout} />
+
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/post/:id" element={<Post />} />
+              <Route path="/AddMovie" element={<MoviesForm />} />
+              <Route path="/movies" element={<Movies />} />
             </Routes>
           </Router>
         </AuthContext.Provider>
@@ -74,3 +69,4 @@ export function App() {
     </>
   );
 }
+
