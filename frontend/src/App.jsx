@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import Login from "./views/Login";
+import ProfilePage from "./views/ProfilePage";
 import Signup from "./views/Signup";
 import Home from "./views/Home";
 import Post from "./views/Post";
@@ -57,9 +58,14 @@ export function App() {
                   <Link to="/login">Login</Link>
                 </>
               ) : (
-                <button onClick={logout}>Cerrar sesión </button>
+                <>
+                  <button onClick={logout}>Cerrar sesión </button>
+                  <Link to={`/profilePage/${authState.id}`}>
+                    {authState.username}
+                  </Link>
+                </>
               )}
-              <h2>{authState.username}</h2>
+
               <Link to="/">Home</Link>
             </div>
             <Routes>
@@ -67,6 +73,7 @@ export function App() {
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
               <Route path="/post/:id" element={<Post />} />
+              <Route path="/profilePage/:id" element={<ProfilePage />} />
             </Routes>
           </Router>
         </AuthContext.Provider>
