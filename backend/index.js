@@ -21,6 +21,10 @@ const ratingsRouter = require("./routes/Ratings");
 app.use("/ratings", ratingsRouter);
 const moviesRouter = require("./routes/Movies");
 app.use("/movies", moviesRouter);
+const playlistRouter = require("./routes/Playlist");
+app.use("/playlist", playlistRouter);
+const commentsRouter = require("./routes/Comments");
+app.use("/comments", commentsRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(5174, () => {

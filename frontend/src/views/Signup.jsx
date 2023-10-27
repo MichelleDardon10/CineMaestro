@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import "../styles/log-sign-styles.css";
 import axios from "axios";
 
+//TODO al hacer signup ir a home
 function Signup() {
   const initialValues = {
     username: "",
@@ -22,8 +23,12 @@ function Signup() {
   };
 
   const onSubmit = (data) => {
-    axios.post("http://localhost:5174/auth", data).then(() => {
-      console.log(data);
+    axios.post("http://localhost:5174/auth", data).then((response) => {
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        history("/login");
+      }
     });
   };
   //TODO Asegurar los parameros de contraseña y usuario para que no puedan enviar nulos u otras cosas por el estilo

@@ -1,0 +1,22 @@
+.goofy-button {
+  background-color: #ff9900; /* Orange background */
+  color: #fff; /* White text */
+  border: 2px solid #ff9900; /* Orange border */
+  padding: 10px 20px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+
+  /* Add some fun animation on hover */
+  &:hover {
+    background-color: #ff6600; /* Slightly darker orange on hover */
+    transform: scale(1.1); /* Scale the button on hover */
+  }
+}
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Make the container take the full height of the viewport */
+}

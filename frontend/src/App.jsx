@@ -8,9 +8,10 @@ import Post from "./views/Post";
 import Navbar from './components/Navbar';
 import MoviesForm from "./views/MoviesForm";
 import Movies from './views/Movies';
+import ProfilePage from "./views/ProfilePage";
+import PlaylistPage from "./views/Playlist";
 import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
-
 //TODO LA CONSTANTE AUTHSTATE PUEDE SER UN OBJETO CON LA INFO DE USUARIO
 export function App() {
   const [authState, setAuthState] = useState({
@@ -62,6 +63,8 @@ export function App() {
               <Route path="/post/:id" element={<Post />} />
               <Route path="/AddMovie" element={<MoviesForm />} />
               <Route path="/movies" element={<Movies />} />
+              <Route path="/playlist" element={<PlaylistPage />} />
+              <Route path="/profilePage/:id" element={<ProfilePage />} />
             </Routes>
           </Router>
         </AuthContext.Provider>
