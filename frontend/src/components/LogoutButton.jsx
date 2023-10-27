@@ -9,3 +9,4 @@ const LogoutButton = ({ onClick }) => {
 };
 
 export default LogoutButton;
+

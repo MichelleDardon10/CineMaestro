@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useState } from "react";
+import axios from "axios";
 
 const MoviesForm = () => {
-  const [titulo, setTitulo] = useState('');
-  const [director, setDirector] = useState('');
-  const [genero, setGenero] = useState('');
-  const [año, setAño] = useState('');
+  const [titulo, setTitulo] = useState("");
+  const [director, setDirector] = useState("");
+  const [genero, setGenero] = useState("");
+  const [fechaEstreno, setFechaEstreno] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -14,47 +14,53 @@ const MoviesForm = () => {
       titulo,
       director,
       genero,
-      año: parseInt(año),
+      fechaEstreno,
     };
 
     try {
-      const response = await axios.post('http://localhost:5174/movies', newMovie);
-
-      if (response.status === 201) {
-        console.log('Película agregada exitosamente:', response.data.pelicula);
-        // Puedes agregar aquí lógica adicional, como limpiar el formulario
-      } else {
-        console.error('Error al agregar la película:', response.data.error);
-      }
+      const response = await axios.post("http://localhost:5174/movies", newMovie);
+      alert(response.data.mensaje);
     } catch (error) {
-      console.error('Error al realizar la solicitud:', error);
+      alert(error.response.data.error);
     }
+
+    setTitulo("");
+    setDirector("");
+    setGenero("");
+    setFechaEstreno("");
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Título:
-        <input type="text" value={titulo} onChange={(e) => setTitulo(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Director:
-        <input type="text" value={director} onChange={(e) => setDirector(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Género:
-        <input type="text" value={genero} onChange={(e) => setGenero(e.target.value)} />
-      </label>
-      <br />
-      <label>
-        Año:
-        <input type="number" value={año} onChange={(e) => setAño(e.target.value)} />
-      </label>
-      <br />
-      <button type="submit">Agregar Película</button>
-    </form>
+    <div className="MoviesForm">
+      <h1>Añadir película</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          value={titulo}
+          onChange={(event) => setTitulo(event.target.value)}
+          placeholder="Título"
+        />
+        <input
+          type="text"
+          value={director}
+          onChange={(event) => setDirector(event.target.value)}
+          placeholder="Director"
+        />
+        <input
+          type="text"
+          value={genero}
+          onChange={(event) => setGenero(event.target.value)}
+          placeholder="Género"
+        />
+        <input
+          type="date"
+          value={fechaEstreno}
+          onChange={(event) => setFechaEstreno(event.target.value)}
+          placeholder="Fecha de estreno"
+        />
+        <button type="submit">Añadir película</button>
+      </form>
+    </div>
   );
 };
 

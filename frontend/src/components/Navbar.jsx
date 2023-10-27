@@ -30,9 +30,17 @@ const Navbar = ({ authState, logout }) => {
           </div>
         )}
         {authState.status ? (
-          <div>
-            <MenuItem to="/AddMovie" label="Añadir Pelicula" />
-            <LogoutButton onClick={logout} />
+          <div className="MoviesItem">
+            <div className="horizontal-menu">
+              <MenuItem to="/AddMovie" label="Añadir Pelicula" />
+              {location.pathname !== '/Playlist' && (
+                <MenuItem to="/Playlist" label="Playlist" />
+              )}
+              {location.pathname !== '/ProfilePage' && (
+                <MenuItem to="/ProfilePage" label="Perfil" />
+              )}
+              <LogoutButton onClick={logout} />
+            </div>
           </div>
         ) : location.pathname !== '/login' ? (
           <div className="MoviesItem">
@@ -45,5 +53,3 @@ const Navbar = ({ authState, logout }) => {
 };
 
 export default Navbar;
-
-
