@@ -94,12 +94,13 @@ function Post() {
             if (typeof userRating !== "string") {
               avgRating = (totalRatings - originalRating) / ratings.length;
             } else {
-              setRatings([...ratings, ratingToAdd]);
               setOriginalRating(newRatingInt);
               avgRating = totalRatings / (ratings.length + 1);
             }
             setAverageRating(avgRating.toFixed(1));
           } else {
+            setRatings([...ratings, ratingToAdd]);
+            setOriginalRating(newRatingInt);
             setAverageRating(newRatingInt.toFixed(1));
           }
           setNewRating("");
@@ -137,7 +138,7 @@ function Post() {
         <div className="RatingS">
           <div>
             Calificación general: {averageRating} con {ratings.length}{" "}
-            cálificaciones
+            {ratings.length === 1 ? "calificación" : "calificaciones"}
           </div>
           <div> mi calificación: {userRating} </div>
         </div>
