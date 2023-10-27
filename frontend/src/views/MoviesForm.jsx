@@ -1,68 +1,92 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useState } from 'react';
+import axios from 'axios';
 
-const MoviesForm = () => {
-  const [titulo, setTitulo] = useState("");
-  const [director, setDirector] = useState("");
-  const [genero, setGenero] = useState("");
-  const [fechaEstreno, setFechaEstreno] = useState("");
+function MoviesForm() {
+  const [movieData, setMovieData] = useState({
+    titulo: '',
+    director: '',
+    genero: '',
+    fechaEstreno: '',
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setMovieData({
+      ...movieData,
+      [name]: value,
+    });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const newMovie = {
-      titulo,
-      director,
-      genero,
-      fechaEstreno,
-    };
-
     try {
-      const response = await axios.post("http://localhost:5174/movies", newMovie);
-      alert(response.data.mensaje);
-    } catch (error) {
-      alert(error.response.data.error);
-    }
+      const response = await axios.post('http://localhost:5174/movies', movieData);
 
-    setTitulo("");
-    setDirector("");
-    setGenero("");
-    setFechaEstreno("");
+      if (response.status === 201) {
+        console.log('Película agregada exitosamente:', response.data.pelicula);
+        setMovieData({
+          titulo: '',
+          director: '',
+          genero: '',
+          fechaEstreno: '',
+        });
+      } else {
+        console.error('Error al agregar la película:', response.data.error);
+      }
+    } catch (error) {
+      console.error('Error al realizar la solicitud:', error);
+    }
   };
 
   return (
-    <div className="MoviesForm">
-      <h1>Añadir película</h1>
+    <div className="moviesForm">
+      <h2>Agregar Película</h2>
       <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={titulo}
-          onChange={(event) => setTitulo(event.target.value)}
-          placeholder="Título"
-        />
-        <input
-          type="text"
-          value={director}
-          onChange={(event) => setDirector(event.target.value)}
-          placeholder="Director"
-        />
-        <input
-          type="text"
-          value={genero}
-          onChange={(event) => setGenero(event.target.value)}
-          placeholder="Género"
-        />
-        <input
-          type="date"
-          value={fechaEstreno}
-          onChange={(event) => setFechaEstreno(event.target.value)}
-          placeholder="Fecha de estreno"
-        />
-        <button type="submit">Añadir película</button>
+        <div className="form-group">
+          <label>Título:</label>
+          <input
+            type="text"
+            name="titulo"
+            value={movieData.titulo}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Director:</label>
+          <input
+            type="text"
+            name="director"
+            value={movieData.director}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Género:</label>
+          <input
+            type="text"
+            name="genero"
+            value={movieData.genero}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label>Fecha de Estreno:</label>
+          <input
+            type="date"
+            name="fechaEstreno"
+            value={movieData.fechaEstreno}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <button type="submit">Agregar Película</button>
+        </div>
       </form>
     </div>
   );
-};
+}
 
 export default MoviesForm;
+
 
