@@ -83,7 +83,7 @@ function Post() {
         console.error("Error fetching comments:", error);
       });
     //Llama al API y busca un post con el id que se envió al hacer click en Home
-    axios.get(`http://localhost:5174/posts/byId/${id}`).then((response) => {
+    axios.get(`http://localhost:5174/movies/byId/${id}`).then((response) => {
       setPostObject(response.data);
     });
 

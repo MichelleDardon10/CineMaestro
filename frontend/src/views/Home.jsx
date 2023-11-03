@@ -1,50 +1,103 @@
-import React from "react";
-import axios from "axios";
-import "../styles/Home-style.css";
-import { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/Movies.css"; // Importa los estilos CSS
 
-const textStyle = {
-  color: "black", // Set the text color to white
-};
-
-export function Home() {
-  //Lo que sea escrito adentro de useEffect va a cargar cada vez que den refresh
-  //Axios.get es para llamar a la información que se envía desde posts
-
-  //List of posts es un array con todos los posts en la base de datos
-  const [listOfPosts, setListOfPosts] = useState([]);
-
-  //Navigate sirve para abrir otras ventanas
+function Home() {
   let navigate = useNavigate();
+  const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    //Llamada al API para que nos de los posts y guardarlos en el array
-    axios.get("http://localhost:5174/posts").then((response) => {
-      setListOfPosts(response.data);
-    });
+    // Realiza una solicitud GET para obtener la lista de películas
+    axios
+      .get("http://localhost:5174/movies")
+      .then((response) => {
+        // Actualiza el estado con los datos de las películas
+        setMovies(response.data);
+      })
+      .catch((error) => {
+        console.error("Error al obtener las películas: ", error);
+      });
   }, []);
 
+  const handleDeleteMovie = async (id) => {
+    try {
+      const response = await axios.delete(`http://localhost:5174/movies/${id}`);
+      console.log(response.data); // Maneja la respuesta de éxito según tus necesidades
+
+      // Actualiza el estado de las películas después de borrar una película
+      setMovies((prevMovies) => prevMovies.filter((movie) => movie.id !== id));
+    } catch (error) {
+      console.error("Error al borrar la película: ", error);
+    }
+  };
+
+  const handleToggleViewed = async (id) => {
+    const movieToUpdate = movies.find((movie) => movie.id === id);
+    const updatedMovie = { ...movieToUpdate, vista: !movieToUpdate.vista };
+
+    try {
+      const response = await axios.put(
+        `http://localhost:5174/movies/${id}/marcar-vista`,
+        updatedMovie,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
+      console.log(response.data); // Maneja la respuesta de éxito según tus necesidades
+
+      // Actualiza el estado de las películas después de marcar o desmarcar una película como vista
+      setMovies((prevMovies) =>
+        prevMovies.map((movie) => (movie.id === id ? updatedMovie : movie))
+      );
+    } catch (error) {
+      console.error(
+        "Error al marcar/desmarcar la película como vista: ",
+        error
+      );
+    }
+  };
+
   return (
-    <div style={textStyle} className="title">
-      {/* Imprime todos los posts en lisOfPosts y sus valores, el onclick y el value.id es para que al presionar un bloque de post
-      se vaya a una pagina especifica para ese post, que es el view que se llama Post.jsx */}
-      {listOfPosts.map((value, key) => {
-        return (
-          <div
-            key={value.id}
-            className="posts"
+    <div className="movies-container">
+      <h2 className="movies-title">
+        <strong>Películas</strong>
+      </h2>
+      <ul className="movies-list">
+        {movies.map((movie) => (
+          <li
+            key={movie.id}
+            className="movie-card"
             onClick={() => {
-              navigate(`/post/${value.id}`);
+              navigate(`/post/${movie.id}`);
             }}
           >
-            <div className="title"> {value.title} </div>
-            <div className="body"> {value.postText} </div>
-            <div className="footer"> {value.username} </div>
-            <div className="corner"> {value.rating} </div>
-          </div>
-        );
-      })}
+            <div className="movie-header">
+              <p className="movie-title">{movie.titulo}</p>
+              <button onClick={() => handleDeleteMovie(movie.id)}>
+                Borrar
+              </button>
+              <button onClick={() => handleToggleViewed(movie.id)}>
+                {movie.vista ? "Desmarcar como vista" : "Marcar como vista"}
+              </button>
+            </div>
+            <div className="movie-info">
+              <p>
+                <strong>Director:</strong> {movie.director}
+              </p>
+              <p>
+                <strong>Género:</strong> {movie.genero}
+              </p>
+              <p>
+                <strong>Año:</strong>{" "}
+                {new Date(movie.fechaEstreno).getFullYear()}
+              </p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

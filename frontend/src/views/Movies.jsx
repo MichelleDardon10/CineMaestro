@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../styles/Movies.css"; // Importa los estilos CSS
 
 function Movies() {
+  let navigate = useNavigate();
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
@@ -20,7 +22,14 @@ function Movies() {
 
   const handleDeleteMovie = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5174/movies/${id}`);
+      const response = await axios.delete(
+        `http://localhost:5174/movies/${id}`,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
       console.log(response.data); // Maneja la respuesta de éxito según tus necesidades
 
       // Actualiza el estado de las películas después de borrar una película
@@ -65,7 +74,13 @@ function Movies() {
       </h2>
       <ul className="movies-list">
         {movies.map((movie) => (
-          <li key={movie.id} className="movie-card">
+          <li
+            key={movie.id}
+            className="movie-card"
+            onClick={() => {
+              navigate(`/post/${movie.id}`);
+            }}
+          >
             <div className="movie-header">
               <p className="movie-title">{movie.titulo}</p>
               <button onClick={() => handleDeleteMovie(movie.id)}>
