@@ -6,14 +6,13 @@ import { AuthContext } from "../helpers/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 function ProfilePage() {
-  let { id } = useParams();
+  const { authState } = useContext(AuthContext);
   let navigate = useNavigate();
   const { setAuthState } = useContext(AuthContext);
 
   const handleDeleteAccount = () => {
-    console.log(id);
     axios
-      .delete(`http://localhost:5174/auth/${id}`, {
+      .delete(`http://localhost:5174/auth/${authState.id}`, {
         headers: { accessToken: localStorage.getItem("accessToken") },
       })
       .then((response) => {

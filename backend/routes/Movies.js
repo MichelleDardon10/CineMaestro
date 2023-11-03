@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
     res.json(listOfMovies);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener las películas' });
+    res.status(500).json({ error: "Error al obtener las películas" });
   }
 });
 
@@ -19,7 +19,7 @@ router.post("/", validateToken, async (req, res) => {
   const { titulo, director, genero, fechaEstreno } = req.body;
   const { username } = req.user;
   // Puedes agregar campos adicionales como "vista" (si el usuario ya vio la película) en el cuerpo de la solicitud
-
+  //
   try {
     const newMovie = await Movies.create({
       titulo,
@@ -30,12 +30,12 @@ router.post("/", validateToken, async (req, res) => {
     });
 
     res.status(201).json({
-      mensaje: 'Película agregada exitosamente',
+      mensaje: "Película agregada exitosamente",
       pelicula: newMovie,
     });
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al agregar la película' });
+    res.status(500).json({ error: "Error al agregar la película" });
   }
 });
 
@@ -45,23 +45,29 @@ router.put("/:id/marcar-vista", validateToken, async (req, res) => {
   const { username } = req.user; // Obtén el nombre de usuario desde el token
 
   try {
-    const updatedMovie = await Movies.update({ vista: true }, {
-      where: {
-        id: id,
-        username: username,
-      },
-    });
+    const updatedMovie = await Movies.update(
+      { vista: true },
+      {
+        where: {
+          id: id,
+          username: username,
+        },
+      }
+    );
 
     if (updatedMovie[0] === 1) {
       res.json({
-        mensaje: 'Película marcada como vista',
+        mensaje: "Película marcada como vista",
       });
     } else {
-      res.status(404).json({ error: 'Película no encontrada o no tienes permisos para marcarla como vista' });
+      res.status(404).json({
+        error:
+          "Película no encontrada o no tienes permisos para marcarla como vista",
+      });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al marcar la película como vista' });
+    res.status(500).json({ error: "Error al marcar la película como vista" });
   }
 });
 
@@ -79,7 +85,9 @@ router.get("/vistas", validateToken, async (req, res) => {
     res.json(listOfVistaMovies);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al obtener las películas marcadas como vistas' });
+    res
+      .status(500)
+      .json({ error: "Error al obtener las películas marcadas como vistas" });
   }
 });
 
@@ -98,14 +106,16 @@ router.delete("/:id", validateToken, async (req, res) => {
 
     if (deletedMovie) {
       res.json({
-        mensaje: 'Película eliminada exitosamente',
+        mensaje: "Película eliminada exitosamente",
       });
     } else {
-      res.status(404).json({ error: 'Película no encontrada o no tienes permisos para eliminarla' });
+      res.status(404).json({
+        error: "Película no encontrada o no tienes permisos para eliminarla",
+      });
     }
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Error al eliminar la película' });
+    res.status(500).json({ error: "Error al eliminar la película" });
   }
 });
 

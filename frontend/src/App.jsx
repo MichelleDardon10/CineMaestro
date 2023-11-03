@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
-import Login from './views/Login';
+import Login from "./views/Login";
 import Signup from "./views/Signup";
 import Home from "./views/Home";
 import Post from "./views/Post";
-import Navbar from './components/Navbar';
+import Navbar from "./components/Navbar";
 import MoviesForm from "./views/MoviesForm";
-import Movies from './views/Movies';
+import Movies from "./views/Movies";
 import ProfilePage from "./views/ProfilePage";
 import PlaylistPage from "./views/Playlist";
 import { AuthContext } from "./helpers/AuthContext";
@@ -64,7 +64,7 @@ export function App() {
               <Route path="/AddMovie" element={<MoviesForm />} />
               <Route path="/movies" element={<Movies />} />
               <Route path="/playlist" element={<PlaylistPage />} />
-              <Route path="/profilePage/:id" element={<ProfilePage />} />
+              <Route path="/profilePage" element={<ProfilePage />} />
             </Routes>
           </Router>
         </AuthContext.Provider>
@@ -72,4 +72,3 @@ export function App() {
     </>
   );
 }
-
