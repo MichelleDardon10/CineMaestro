@@ -6,9 +6,8 @@ import axios from "axios";
 
 function Post() {
   let { id } = useParams();
-  const [originalRating, setOriginalRating] = useState("");
   const { authState } = useContext(AuthContext);
-  const [postObject, setPostObject] = useState({});
+  const [movieObject, setMovieObject] = useState({});
   const [ratings, setRatings] = useState([]);
   const [newRating, setNewRating] = useState("");
   const [averageRating, setAverageRating] = useState("");
@@ -40,13 +39,17 @@ function Post() {
       axios
         .post("http://localhost:5174/comments", {
           comment: newComment,
-          username: id,
+          username: authState.username,
+          MovieId: id,
+          UserId: authState.id,
         })
         .then((response) => {
+          console.log(id);
+          console.log(authState.id);
           axios
-            .get("http://localhost:5174/comments")
+            .get(`http://localhost:5174/comments/${id}`)
             .then((response) => {
-              setCommentList(response.data); // Assuming the response data is an array of playlist names
+              setCommentList(response.data);
             })
             .catch((error) => {
               console.error("Error fetching comments:", error);
@@ -79,20 +82,20 @@ function Post() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5174/comments")
+      .get(`http://localhost:5174/comments/${id}`)
       .then((response) => {
         setCommentList(response.data); // Assuming the response data is an array of playlist names
       })
       .catch((error) => {
         console.error("Error fetching comments:", error);
       });
-    //Llama al API y busca un post con el id que se envió al hacer click en Home
+
     axios.get(`http://localhost:5174/movies/byId/${id}`).then((response) => {
-      setPostObject(response.data);
+      setMovieObject(response.data);
     });
 
     //Llama al API y busca los ratings relacionado con el post que tiene en id
-    axios.get(`http://localhost:5174/ratings/${id}`).then((response) => {
+    axios.get(`http://localhost:5174/ratings/byId/${id}`).then((response) => {
       setRatings(response.data);
       //setRatingId(response.data[0].id);
 
@@ -114,7 +117,6 @@ function Post() {
 
       if (userRated) {
         setUserRating(userRated.rating);
-        setOriginalRating(userRated.rating);
       } else {
         setUserRating("No ha calificado esta pelicula");
       }
@@ -133,13 +135,12 @@ function Post() {
       alert("Por favor, ingrese un número entero entre 0 y 10.");
       return;
     }
-    //Hace el post, y en el API se revisa si el usuario está registrado y si no regresa error.
+
     axios
       .post(
         "http://localhost:5174/ratings",
         {
           rating: newRatingInt,
-          PostId: id,
           MovieId: id,
           UserId: authState.id,
         },
@@ -162,48 +163,55 @@ function Post() {
   };
 
   return (
-    <div className="postPage">
-      <div className="post">
-        <div className="title"> {postObject.title} </div>
-        <div className="body"> {postObject.postText} </div>
-        <div className="footer"> {postObject.username} </div>
-        <div className="corner"> {postObject.rating} </div>
-      </div>
-      <div className="ratings">
-        <div className="ratingBox">
-          <input
-            type="number"
-            placeholder=""
-            value={newRating}
-            onChange={(e) => {
-              setNewRating(e.target.value);
-            }}
-          />
-          <button onClick={addRating}>
+    <div>
+      <div className="post-container">
+        <div className="post">
+          <div className="title"> {movieObject.titulo} </div>
+          <div className="director"> {movieObject.director} </div>
+          <div className="genre"> {movieObject.genero} </div>
+          <div className="date">
             {" "}
-            {typeof userRating !== "string"
-              ? "Cambia tu Calificación"
-              : "Deja tu Calificación"}
-          </button>
-        </div>
-        <div className="RatingS">
-          <div>
-            Calificación general: {averageRating} con {ratings.length}{" "}
-            {ratings.length === 1 ? "calificación" : "calificaciones"}
+            {new Date(movieObject.fechaEstreno).getFullYear()}{" "}
           </div>
-          <div> mi calificación: {userRating} </div>
-          {ratings.length !== 0 && (
-            <button
-              className="remove-button"
-              onClick={() => handleRemoveRating()}
-            >
-              Remove
+          <div className="username"> {movieObject.username} </div>
+        </div>
+
+        <div className="ratings">
+          <div className="ratingBox">
+            <div> Mi calificación: {userRating} </div>
+            <input
+              type="number"
+              placeholder=""
+              value={newRating}
+              onChange={(e) => {
+                setNewRating(e.target.value);
+              }}
+            />
+
+            <button onClick={addRating}>
+              {" "}
+              {typeof userRating !== "string"
+                ? "Cambia tu Calificación"
+                : "Deja tu Calificación"}
             </button>
-          )}
+            <div>
+              Calificación general: {averageRating} con {ratings.length}{" "}
+              {ratings.length === 1 ? "calificación" : "calificaciones"}
+            </div>
+
+            {ratings.length !== 0 && (
+              <button
+                className="remove-button"
+                onClick={() => handleRemoveRating()}
+              >
+                Remove
+              </button>
+            )}
+          </div>
         </div>
       </div>
-      <div className="ratings">
-        <div className="ratingBox">
+      <div className="Comments">
+        <div className="Commentbox">
           <input
             type="string"
             placeholder="place your comment"
@@ -213,20 +221,21 @@ function Post() {
             }}
           />
           <button onClick={handleCreateComment}>add comment</button>
+
+          <ul>
+            {commentList.map((comment, index) => (
+              <li key={index}>
+                <span className="title">{comment.comment}</span>
+                <button
+                  className="remove-button"
+                  onClick={() => handleRemoveComment(comment.id)}
+                >
+                  Remove
+                </button>
+              </li>
+            ))}
+          </ul>
         </div>
-        <ul>
-          {commentList.map((comment, index) => (
-            <li key={index}>
-              <span className="title">{comment.comment}</span>
-              <button
-                className="remove-button"
-                onClick={() => handleRemoveComment(comment.id)}
-              >
-                Remove
-              </button>
-            </li>
-          ))}
-        </ul>
       </div>
     </div>
   );

@@ -13,8 +13,6 @@ const db = require("./models");
 
 //ROUTERS
 
-const postRouter = require("./routes/Posts");
-app.use("/posts", postRouter);
 const usersRouter = require("./routes/Users");
 app.use("/auth", usersRouter);
 const ratingsRouter = require("./routes/Ratings");

@@ -7,7 +7,7 @@ const validateToken = (req, res, next) => {
 
   if (!accessToken) {
     console.log("Verdades");
-    return res.json({ error: "El usuario no ha iniciado sesion xd" });
+    return res.json({ error: "El usuario no ha iniciado sesion" });
   } else {
     try {
       const validToken = verify(accessToken, "password");

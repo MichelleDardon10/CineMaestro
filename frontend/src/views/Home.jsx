@@ -67,33 +67,29 @@ function Home() {
       </h2>
       <ul className="movies-list">
         {movies.map((movie) => (
-          <li
-            key={movie.id}
-            className="movie-card"
-            onClick={() => {
-              navigate(`/post/${movie.id}`);
-            }}
-          >
-            <div className="movie-header">
-              <p className="movie-title">{movie.titulo}</p>
+          <li key={movie.id} className="movie-card">
+            <div
+              onClick={() => {
+                navigate(`/post/${movie.id}`);
+              }}
+            >
+              <div className="movie-header">
+                <p className="movie-title">{movie.titulo}</p>
+              </div>
+
+              <div className="movie-info">
+                <p>
+                  <strong>Género:</strong> {movie.genero}
+                </p>
+              </div>
+            </div>
+            <div className="buttons">
               <button onClick={() => handleDeleteMovie(movie.id)}>
                 Borrar
               </button>
               <button onClick={() => handleToggleViewed(movie.id)}>
                 {movie.vista ? "Desmarcar como vista" : "Marcar como vista"}
               </button>
-            </div>
-            <div className="movie-info">
-              <p>
-                <strong>Director:</strong> {movie.director}
-              </p>
-              <p>
-                <strong>Género:</strong> {movie.genero}
-              </p>
-              <p>
-                <strong>Año:</strong>{" "}
-                {new Date(movie.fechaEstreno).getFullYear()}
-              </p>
             </div>
           </li>
         ))}

@@ -32,6 +32,10 @@ module.exports = (sequelize) => {
       {
         onDelete: "cascade",
       };
+    Movies.hasMany(models.Comments),
+      {
+        onDelete: "cascade",
+      };
   };
 
   return Movies;

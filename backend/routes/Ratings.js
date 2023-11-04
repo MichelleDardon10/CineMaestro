@@ -4,9 +4,9 @@ const { Ratings } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 //Regresa todos los ratings
-router.get("/:postId", async (req, res) => {
-  const postId = req.params.postId;
-  const allRatings = await Ratings.findAll({ where: { PostId: postId } });
+router.get("/byId/:movieId", async (req, res) => {
+  const movieId = req.params.movieId;
+  const allRatings = await Ratings.findAll({ where: { MovieId: movieId } });
   res.json(allRatings);
 });
 
@@ -18,12 +18,12 @@ router.get("/", async (req, res) => {
 //Postea un nuevo rating, el parametro validateToken hace que solo lo haga si está valido el usuario
 router.post("/", validateToken, async (req, res) => {
   const rating = req.body;
-  const { PostId } = req.body;
+  const { MovieId } = req.body;
   const username = req.user.username;
   const UserId = req.user.id;
 
   const found = await Ratings.findOne({
-    where: { PostId: PostId, UserId: UserId },
+    where: { MovieId: MovieId, UserId: UserId },
   });
   console.log(found);
   if (!found) {
