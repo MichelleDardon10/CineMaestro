@@ -21,13 +21,11 @@ module.exports = (sequelize, DataTypes) => {
     Users.hasMany(models.Ratings, {
       onDelete: "cascade",
     });
-  };
 
-  Users.associate= (models) => {
     Users.hasMany(models.Playlist, {
-      onDelete: "cascade"
-    })
-  }
+      onDelete: "cascade",
+    });
+  };
 
   return Users;
 };

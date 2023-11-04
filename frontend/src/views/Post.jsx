@@ -13,25 +13,29 @@ function Post() {
   const [newRating, setNewRating] = useState("");
   const [averageRating, setAverageRating] = useState("");
   const [userRating, setUserRating] = useState("");
-  const [ratingId, setRatingId] = useState("");
   const [newComment, setNewComment] = useState("");
   const [commentList, setCommentList] = useState([]);
 
-  const handleRemoveRating = (id) => {
+  const handleRemoveRating = () => {
     // Send a DELETE request to the server to delete the playlist
     axios
-      .delete(`http://localhost:5174/ratings/${id}`)
+      .delete(
+        `http://localhost:5174/ratings/${id}`,
+
+        {
+          headers: { accessToken: localStorage.getItem("accessToken") },
+        }
+      )
       .then((response) => {
-        // Refresh the page
-        window.location.reload();
-      })
-      .catch((error) => {
-        console.error("Error deleting playlist:", error);
+        if (response.data.error) {
+          alert(response.data.error);
+        } else {
+          window.location.reload();
+        }
       });
   };
 
   const handleCreateComment = () => {
-    console.log(newComment);
     if (newComment) {
       axios
         .post("http://localhost:5174/comments", {
@@ -90,7 +94,7 @@ function Post() {
     //Llama al API y busca los ratings relacionado con el post que tiene en id
     axios.get(`http://localhost:5174/ratings/${id}`).then((response) => {
       setRatings(response.data);
-      setRatingId(response.data[0].id);
+      //setRatingId(response.data[0].id);
 
       //Lógica para hacer un promedio de rating.
       if (response.data && response.data.length > 0) {
@@ -136,8 +140,10 @@ function Post() {
         {
           rating: newRatingInt,
           PostId: id,
+          MovieId: id,
           UserId: authState.id,
         },
+
         {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
@@ -145,34 +151,11 @@ function Post() {
         }
       )
       .then((response) => {
+        console.log(localStorage.getItem("accessToken"));
+
         if (response.data.error) {
           alert(response.data.error);
         } else {
-          const ratingToAdd = { rating: newRatingInt };
-
-          //Se actualiza el promedio con el nuevo dato
-          if (ratings && ratings.length > 0) {
-            const totalRatings = [...ratings, ratingToAdd].reduce(
-              (sum, ratingJson) => sum + ratingJson.rating,
-              0
-            );
-            let avgRating = 0;
-
-            if (typeof userRating !== "string") {
-              avgRating = (totalRatings - originalRating) / ratings.length;
-            } else {
-              setOriginalRating(newRatingInt);
-              avgRating = totalRatings / (ratings.length + 1);
-            }
-            setAverageRating(avgRating.toFixed(1));
-          } else {
-            setRatings([...ratings, ratingToAdd]);
-            setOriginalRating(newRatingInt);
-            setAverageRating(newRatingInt.toFixed(1));
-          }
-          setNewRating("");
-
-          setUserRating(newRatingInt);
           window.location.reload();
         }
       });
@@ -212,7 +195,7 @@ function Post() {
           {ratings.length !== 0 && (
             <button
               className="remove-button"
-              onClick={() => handleRemoveRating(ratingId)}
+              onClick={() => handleRemoveRating()}
             >
               Remove
             </button>

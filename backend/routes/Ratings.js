@@ -25,8 +25,7 @@ router.post("/", validateToken, async (req, res) => {
   const found = await Ratings.findOne({
     where: { PostId: PostId, UserId: UserId },
   });
-  console.log(PostId);
-  console.log(UserId);
+  console.log(found);
   if (!found) {
     rating.username = username;
     await Ratings.create(rating);
@@ -37,18 +36,27 @@ router.post("/", validateToken, async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  const ratingId = req.params.id;
+router.delete("/:id", validateToken, async (req, res) => {
+  const UserId = req.user.id;
+  const MovieId = req.params.id;
+
   try {
-      const ratings = await Ratings.findByPk(ratingId);
-      if (!ratings) {
-      return res.status(404).json({ message: 'Rating not found' });
-      }
-      await ratings.destroy();
-      return res.status(204).send(); // No content response
+    const found = await Ratings.findOne({
+      where: { MovieId, UserId },
+    });
+
+    if (!found) {
+      return res.status(404).json({ error: "No rating from user" });
+    } else {
+      await Ratings.destroy({
+        where: { MovieId, UserId },
+      });
+      return res.status(204).send();
+    }
   } catch (error) {
-      console.error('Error deleting rating:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+    console.error("Error deleting rating:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
+
 module.exports = router;

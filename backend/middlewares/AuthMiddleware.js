@@ -5,19 +5,21 @@ const { verify } = require("jsonwebtoken");
 const validateToken = (req, res, next) => {
   const accessToken = req.header("accessToken");
 
-  if (!accessToken)
-    return res.json({ error: "El usuario no ha iniciado sesion" });
+  if (!accessToken) {
+    console.log("Verdades");
+    return res.json({ error: "El usuario no ha iniciado sesion xd" });
+  } else {
+    try {
+      const validToken = verify(accessToken, "password");
 
-  try {
-    const validToken = verify(accessToken, "password");
+      req.user = validToken;
 
-    req.user = validToken;
-
-    if (validToken) {
-      return next();
+      if (validToken) {
+        return next();
+      }
+    } catch (err) {
+      return res.json({ error: err });
     }
-  } catch (err) {
-    return res.json({ error: err });
   }
 };
 

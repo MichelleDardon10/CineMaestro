@@ -17,7 +17,7 @@ module.exports = (sequelize) => {
     vista: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
-      defaultValue: false, 
+      defaultValue: false,
     },
     fechaEstreno: {
       type: DataTypes.DATE,
@@ -27,8 +27,12 @@ module.exports = (sequelize) => {
       allowNull: false,
     },
   });
+  Movies.associate = (models) => {
+    Movies.hasMany(models.Ratings),
+      {
+        onDelete: "cascade",
+      };
+  };
 
   return Movies;
 };
-
-
