@@ -5,7 +5,6 @@ const bcrypt = require("bcrypt");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 const { sign } = require("jsonwebtoken");
-//AQUI SE CREA UNA INSTANCIA DE POSTS QUE ESTA EN MODELS
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;

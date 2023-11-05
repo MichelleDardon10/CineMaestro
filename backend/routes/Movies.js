@@ -119,4 +119,10 @@ router.delete("/:id", validateToken, async (req, res) => {
   }
 });
 
+router.get("/byId/:id", async (req, res) => {
+  const id = req.params.id;
+  const movie = await Movies.findByPk(id);
+  res.json(movie);
+});
+
 module.exports = router;

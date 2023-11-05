@@ -4,9 +4,9 @@ const { Comments } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware");
 
 //Regresa todos los ratings
-router.get("/:postId", async (req, res) => {
-  const postId = req.params.postId;
-  const allComments = await Comments.findAll({ where: { PostId: postId } });
+router.get("/:movieId", async (req, res) => {
+  const movieId = req.params.movieId;
+  const allComments = await Comments.findAll({ where: { MovieId: movieId } });
   res.json(allComments);
 });
 
@@ -16,23 +16,23 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-    const comment = req.body;
-    await Comments.create(comment);
-    res.json(comment);
-  });
+  const comment = req.body;
+  await Comments.create(comment);
+  res.json(comment);
+});
 
 router.delete("/:id", async (req, res) => {
   const commentId = req.params.id;
   try {
-      const comments = await Comments.findByPk(commentId);
-      if (!comments) {
-      return res.status(404).json({ message: 'Comment not found' });
-      }
-      await comments.destroy();
-      return res.status(204).send(); // No content response
+    const comments = await Comments.findByPk(commentId);
+    if (!comments) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+    await comments.destroy();
+    return res.status(204).send(); // No content response
   } catch (error) {
-      console.error('Error deleting Comment:', error);
-      return res.status(500).json({ message: 'Internal server error' });
+    console.error("Error deleting Comment:", error);
+    return res.status(500).json({ message: "Internal server error" });
   }
 });
 module.exports = router;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "../styles/MoviesForm-style.css";
 
 function MoviesForm() {
   const [movieData, setMovieData] = useState({
@@ -19,7 +20,7 @@ function MoviesForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    //
     try {
       const response = await axios.post(
         "http://localhost:5174/movies",
