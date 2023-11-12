@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   res.json(listOfComments);
 });
 
-router.post("/", async (req, res) => {
+router.post("/", validateToken, async (req, res) => {
   const comment = req.body;
   await Comments.create(comment);
   res.json(comment);

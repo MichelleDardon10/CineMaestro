@@ -44,16 +44,18 @@ function Post() {
           UserId: authState.id,
         })
         .then((response) => {
-          console.log(id);
-          console.log(authState.id);
-          axios
-            .get(`http://localhost:5174/comments/${id}`)
-            .then((response) => {
-              setCommentList(response.data);
-            })
-            .catch((error) => {
-              console.error("Error fetching comments:", error);
-            });
+          if (response.data.error) {
+            alert(response.data.error);
+          } else {
+            axios
+              .get(`http://localhost:5174/comments/${id}`)
+              .then((response) => {
+                setCommentList(response.data);
+              })
+              .catch((error) => {
+                console.error("Error fetching comments:", error);
+              });
+          }
         })
         .catch((error) => {
           console.error("Error creating comment:", error);

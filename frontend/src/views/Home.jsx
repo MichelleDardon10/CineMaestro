@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/Movies.css"; // Importa los estilos CSS
+import "../styles/Home-style.css"; // Importa los estilos CSS
 
 function Home() {
   let navigate = useNavigate();

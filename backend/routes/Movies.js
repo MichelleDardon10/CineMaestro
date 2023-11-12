@@ -16,7 +16,7 @@ router.get("/", async (req, res) => {
 
 // Agregar una nueva película protegida por autenticación
 router.post("/", validateToken, async (req, res) => {
-  const { titulo, director, genero, fechaEstreno } = req.body;
+  const { titulo, director, genero, fechaEstreno, UserId } = req.body;
   const { username } = req.user;
   // Puedes agregar campos adicionales como "vista" (si el usuario ya vio la película) en el cuerpo de la solicitud
   //
@@ -25,6 +25,7 @@ router.post("/", validateToken, async (req, res) => {
       titulo,
       director,
       genero,
+      UserId,
       fechaEstreno, // Fecha de lanzamiento de la película
       username, // Asocia el nombre de usuario con la película
     });

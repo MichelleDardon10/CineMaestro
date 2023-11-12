@@ -7,9 +7,10 @@ import Home from "./views/Home";
 import Post from "./views/Post";
 import Navbar from "./components/Navbar";
 import MoviesForm from "./views/MoviesForm";
-import Movies from "./views/Movies";
+
 import ProfilePage from "./views/ProfilePage";
 import PlaylistPage from "./views/Playlist";
+import List from "./views/List";
 import { AuthContext } from "./helpers/AuthContext";
 import axios from "axios";
 //TODO LA CONSTANTE AUTHSTATE PUEDE SER UN OBJETO CON LA INFO DE USUARIO
@@ -47,6 +48,7 @@ export function App() {
       id: 0,
       status: false,
     });
+    window.location.href = "/";
   };
 
   return (
@@ -62,9 +64,10 @@ export function App() {
               <Route path="/signup" element={<Signup />} />
               <Route path="/post/:id" element={<Post />} />
               <Route path="/AddMovie" element={<MoviesForm />} />
-              <Route path="/movies" element={<Movies />} />
+
               <Route path="/playlist" element={<PlaylistPage />} />
               <Route path="/profilePage" element={<ProfilePage />} />
+              <Route path="/list" element={<List />} />
             </Routes>
           </Router>
         </AuthContext.Provider>
