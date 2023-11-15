@@ -8,6 +8,19 @@ const { sign } = require("jsonwebtoken");
 
 router.post("/", async (req, res) => {
   const { username, password } = req.body;
+
+  const existingUser = await Users.findOne({
+    where: {
+      username: username,
+    },
+  });
+
+  if (existingUser) {
+    // If the username already exists, throw an error
+    res.json({ error: "Nombre no disponible" });
+    return;
+  }
+
   bcrypt.hash(password, 10).then((hashpw) => {
     Users.create({
       username: username,
@@ -50,6 +63,7 @@ router.delete("/:userId", validateToken, async (req, res) => {
       id: userId,
     },
   });
+  res.json("Eliminada");
 });
 
 module.exports = router;

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import "../styles/Movies.css"; // Importa los estilos CSS
+import "../styles/Home-style.css"; // Importa los estilos CSS
 
-function Movies() {
+function List() {
   let navigate = useNavigate();
   const [movies, setMovies] = useState([]);
 
@@ -22,14 +22,7 @@ function Movies() {
 
   const handleDeleteMovie = async (id) => {
     try {
-      const response = await axios.delete(
-        `http://localhost:5174/movies/${id}`,
-        {
-          headers: {
-            accessToken: localStorage.getItem("accessToken"),
-          },
-        }
-      );
+      const response = await axios.delete(`http://localhost:5174/movies/${id}`);
       console.log(response.data); // Maneja la respuesta de éxito según tus necesidades
 
       // Actualiza el estado de las películas después de borrar una película
@@ -74,33 +67,29 @@ function Movies() {
       </h2>
       <ul className="movies-list">
         {movies.map((movie) => (
-          <li
-            key={movie.id}
-            className="movie-card"
-            onClick={() => {
-              navigate(`/post/${movie.id}`);
-            }}
-          >
-            <div className="movie-header">
-              <p className="movie-title">{movie.titulo}</p>
+          <li key={movie.id} className="movie-card">
+            <div
+              onClick={() => {
+                navigate(`/post/${movie.id}`);
+              }}
+            >
+              <div className="movie-header">
+                <p className="movie-title">{movie.titulo}</p>
+              </div>
+
+              <div className="movie-info">
+                <p>
+                  <strong>Género:</strong> {movie.genero}
+                </p>
+              </div>
+            </div>
+            <div className="buttons">
               <button onClick={() => handleDeleteMovie(movie.id)}>
                 Borrar
               </button>
               <button onClick={() => handleToggleViewed(movie.id)}>
                 {movie.vista ? "Desmarcar como vista" : "Marcar como vista"}
               </button>
-            </div>
-            <div className="movie-info">
-              <p>
-                <strong>Director:</strong> {movie.director}
-              </p>
-              <p>
-                <strong>Género:</strong> {movie.genero}
-              </p>
-              <p>
-                <strong>Año:</strong>{" "}
-                {new Date(movie.fechaEstreno).getFullYear()}
-              </p>
             </div>
           </li>
         ))}
@@ -109,4 +98,4 @@ function Movies() {
   );
 }
 
-export default Movies;
+export default List;

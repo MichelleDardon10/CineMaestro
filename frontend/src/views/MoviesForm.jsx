@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import axios from "axios";
 import "../styles/MoviesForm-style.css";
+import { AuthContext } from "../helpers/AuthContext";
 
 function MoviesForm() {
+  const { authState } = useContext(AuthContext);
   const [movieData, setMovieData] = useState({
     titulo: "",
     director: "",
     genero: "",
     fechaEstreno: "",
+    UserId: authState.id,
   });
 
   const handleChange = (e) => {

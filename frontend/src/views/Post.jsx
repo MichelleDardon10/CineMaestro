@@ -37,23 +37,31 @@ function Post() {
   const handleCreateComment = () => {
     if (newComment) {
       axios
-        .post("http://localhost:5174/comments", {
-          comment: newComment,
-          username: authState.username,
-          MovieId: id,
-          UserId: authState.id,
-        })
+        .post(
+          "http://localhost:5174/comments",
+          {
+            comment: newComment,
+            username: authState.username,
+            MovieId: id,
+            UserId: authState.id,
+          },
+          {
+            headers: { accessToken: localStorage.getItem("accessToken") },
+          }
+        )
         .then((response) => {
-          console.log(id);
-          console.log(authState.id);
-          axios
-            .get(`http://localhost:5174/comments/${id}`)
-            .then((response) => {
-              setCommentList(response.data);
-            })
-            .catch((error) => {
-              console.error("Error fetching comments:", error);
-            });
+          if (response.data.error) {
+            alert(response.data.error);
+          } else {
+            axios
+              .get(`http://localhost:5174/comments/${id}`)
+              .then((response) => {
+                setCommentList(response.data);
+              })
+              .catch((error) => {
+                console.error("Error fetching comments:", error);
+              });
+          }
         })
         .catch((error) => {
           console.error("Error creating comment:", error);
@@ -152,8 +160,6 @@ function Post() {
         }
       )
       .then((response) => {
-        console.log(localStorage.getItem("accessToken"));
-
         if (response.data.error) {
           alert(response.data.error);
         } else {

@@ -23,6 +23,8 @@ const playlistRouter = require("./routes/Playlist");
 app.use("/playlist", playlistRouter);
 const commentsRouter = require("./routes/Comments");
 app.use("/comments", commentsRouter);
+const nameideasRouter = require("./routes/NameIdeas");
+app.use("/nameideas", nameideasRouter);
 
 db.sequelize.sync().then(() => {
   app.listen(5174, () => {
