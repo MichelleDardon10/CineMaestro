@@ -28,11 +28,11 @@ router.post("/", validateToken, async (req, res) => {
   console.log(found);
   if (!found) {
     rating.username = username;
-    await Ratings.create(rating);
-    res.json(rating);
+    fullRating = await Ratings.create(rating);
+    res.json(fullRating);
   } else {
-    await found.update(rating);
-    res.json(rating);
+    fullRating = await found.update(rating);
+    res.json(fullRating);
   }
 });
 

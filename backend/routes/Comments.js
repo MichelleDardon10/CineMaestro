@@ -17,8 +17,8 @@ router.get("/", async (req, res) => {
 
 router.post("/", validateToken, async (req, res) => {
   const comment = req.body;
-  await Comments.create(comment);
-  res.json(comment);
+  const createdComment = await Comments.create(comment);
+  res.json(createdComment);
 });
 
 router.delete("/:id", async (req, res) => {
