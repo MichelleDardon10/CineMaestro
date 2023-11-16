@@ -68,7 +68,7 @@ function PlaylistPage() {
       <h1 className="title-playlist">My Playlists</h1>
 
       <div>
-        <input
+        <input className="input"
           type="text"
           placeholder="Enter playlist name"
           value={newPlaylistName}

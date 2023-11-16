@@ -10,7 +10,6 @@ function MoviesForm() {
     director: "",
     genero: "",
     fechaEstreno: "",
-    UserId: authState.id,
   });
 
   const handleChange = (e) => {
@@ -23,7 +22,7 @@ function MoviesForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    //
+
     try {
       const response = await axios.post(
         "http://localhost:5174/movies",
@@ -36,7 +35,7 @@ function MoviesForm() {
       );
 
       if (response.status === 201) {
-        console.log("Película agregada exitosamente:", response.data.pelicula);
+        window.alert("Película agregada exitosamente");
         setMovieData({
           titulo: "",
           director: "",
@@ -44,10 +43,10 @@ function MoviesForm() {
           fechaEstreno: "",
         });
       } else {
-        console.error("Error al agregar la película:", response.data.error);
+        window.alert(`Error al agregar la película: ${response.data.error}`);
       }
     } catch (error) {
-      console.error("Error al realizar la solicitud:", error);
+      window.alert(`Error al realizar la solicitud: ${error.message}`);
     }
   };
 
@@ -56,8 +55,9 @@ function MoviesForm() {
       <h2>Agregar Película</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Título:</label>
+          <label className="label">Título:</label>
           <input
+            className="input"
             type="text"
             name="titulo"
             value={movieData.titulo}
@@ -65,8 +65,9 @@ function MoviesForm() {
           />
         </div>
         <div className="form-group">
-          <label>Director:</label>
+          <label className="label">Director:</label>
           <input
+            className="input"
             type="text"
             name="director"
             value={movieData.director}
@@ -74,8 +75,9 @@ function MoviesForm() {
           />
         </div>
         <div className="form-group">
-          <label>Género:</label>
+          <label className="label">Género:</label>
           <input
+            className="input"
             type="text"
             name="genero"
             value={movieData.genero}
@@ -83,8 +85,9 @@ function MoviesForm() {
           />
         </div>
         <div className="form-group">
-          <label>Fecha de Estreno:</label>
+          <label className="label">Fecha de Estreno:</label>
           <input
+            className="input"
             type="date"
             name="fechaEstreno"
             value={movieData.fechaEstreno}
@@ -92,7 +95,9 @@ function MoviesForm() {
           />
         </div>
         <div className="form-group">
-          <button type="submit">Agregar Película</button>
+          <button type="submit" className="button">
+            Agregar Película
+          </button>
         </div>
       </form>
     </div>
@@ -100,3 +105,4 @@ function MoviesForm() {
 }
 
 export default MoviesForm;
+

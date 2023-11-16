@@ -22,7 +22,13 @@ function List() {
 
   const handleDeleteMovie = async (id) => {
     try {
-      const response = await axios.delete(`http://localhost:5174/movies/${id}`);
+      const response = await axios.delete(`http://localhost:5174/movies/${id}`,
+        {
+          headers: {
+            accessToken: localStorage.getItem("accessToken"),
+          },
+        }
+      );
       console.log(response.data); // Maneja la respuesta de éxito según tus necesidades
 
       // Actualiza el estado de las películas después de borrar una película
@@ -63,7 +69,7 @@ function List() {
   return (
     <div className="movies-container">
       <h2 className="movies-title">
-        <strong>Películas</strong>
+        <strong>PELICULAS</strong>
       </h2>
       <ul className="movies-list">
         {movies.map((movie) => (

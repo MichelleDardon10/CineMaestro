@@ -15,4 +15,14 @@
     border-radius: 5px;
     margin-left: 10px;
   }
-  
+
+  .input {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ffffff;
+    color: #999999;
+    font-size: 16px;
+    background: transparent;
+    outline: none;
+  }

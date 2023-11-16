@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../helpers/AuthContext";
 import axios from "axios";
-import "../styles/Home-style.css"; // Importa los estilos CSS
+import "../styles/NameIdeas-style.css"; // Importa los estilos CSS
 
 function NameIdeas() {
   let navigate = useNavigate();
@@ -66,10 +66,10 @@ function NameIdeas() {
   return (
     <div className="movies-container">
       <h2 className="movies-title">
-        <strong>Películas</strong>
+        <strong>IDEAS</strong>
       </h2>
       <div>
-        <input
+        <input className = "input"
           type="text"
           placeholder="Ingrese su idea"
           value={newIdeaTitle}

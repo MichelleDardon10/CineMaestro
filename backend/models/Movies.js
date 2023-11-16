@@ -25,7 +25,7 @@ module.exports = (sequelize) => {
     username: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
+    }
   });
   Movies.associate = (models) => {
     Movies.hasMany(models.Ratings),
