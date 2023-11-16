@@ -29,7 +29,7 @@ router.post("/", validateToken, async (req, res) => {
   if (!found) {
     rating.username = username;
     fullRating = await Ratings.create(rating);
-    res.json(fullRating);
+    res.status(201).json(fullRating);
   } else {
     fullRating = await found.update(rating);
     res.json(fullRating);
@@ -51,7 +51,7 @@ router.delete("/:id", validateToken, async (req, res) => {
       await Ratings.destroy({
         where: { MovieId, UserId },
       });
-      return res.status(204).send();
+      return res.status(200).send();
     }
   } catch (error) {
     console.error("Error deleting rating:", error);

@@ -18,7 +18,7 @@ router.get("/", async (req, res) => {
 router.post("/", validateToken, async (req, res) => {
   const comment = req.body;
   const createdComment = await Comments.create(comment);
-  res.json(createdComment);
+  res.status(201).json(createdComment);
 });
 
 router.delete("/:id", async (req, res) => {
@@ -29,7 +29,7 @@ router.delete("/:id", async (req, res) => {
       return res.status(404).json({ message: "Comment not found" });
     }
     await comments.destroy();
-    return res.status(204).send(); // No content response
+    return res.status(200).send(); // No content response
   } catch (error) {
     console.error("Error deleting Comment:", error);
     return res.status(500).json({ message: "Internal server error" });
