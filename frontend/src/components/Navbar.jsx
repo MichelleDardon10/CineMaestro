@@ -13,15 +13,15 @@ const Navbar = ({ authState, logout }) => {
       className="navbar"
       style={{
         backgroundColor:
-          location.pathname === "/login"
+          location.pathname === "/login" || location.pathname === "/signup"
             ? "transparent"
             : "rgba(128, 128, 128, 0.5)",
         boxShadow: "0 15px 25px rgba(0, 0, 0, 0.6)",
       }}
     >
-      {location.pathname !== "/login" && <Logo />}
-      <div className="navbar-menu">
-        {location.pathname !== "/" && location.pathname !== "/login" && (
+      {location.pathname !== "/login" && location.pathname !== "/signup" && <Logo />}
+        <div className="navbar-menu">
+        {location.pathname !== "/" && location.pathname !== "/login" && location.pathname !== "/signup" &&(
           <div className="MoviesItem">
             <MenuItem to="/" label="Home" />
           </div>
@@ -30,7 +30,12 @@ const Navbar = ({ authState, logout }) => {
         {authState.status ? (
           <div className="MoviesItem">
             <div className="horizontal-menu">
-              <MenuItem to="/AddMovie" label="Añadir Pelicula" />
+              {location.pathname !== "/AddMovie" && (
+                <MenuItem to="/AddMovie" label="Añadir Pelicula" />
+              )}
+              {location.pathname !== "/nameideas" && (
+                <MenuItem to="/nameideas" label="Name movies" />
+              )}
               {location.pathname !== "/Playlist" && (
                 <MenuItem to="/Playlist" label="Playlist" />
               )}
@@ -40,7 +45,7 @@ const Navbar = ({ authState, logout }) => {
               <LogoutButton onClick={logout} />
             </div>
           </div>
-        ) : location.pathname !== "/login" ? (
+        ) : location.pathname !== "/login" && location.pathname !== "/signup" ? (
           <div className="MoviesItem">
             <MenuItem to="/login" label="Login" />
           </div>

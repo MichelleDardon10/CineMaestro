@@ -1,31 +1,37 @@
+/* Reset styles for all elements */
 * {
   box-sizing: border-box;
 }
+
+/* Container styles */
 .movies-container {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  display: flex; /* Add flex display */
-  flex-wrap: wrap; /* Wrap items to the next line when the row is full */
-  justify-content: space-between; /* Distribute space between the cards */
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
+/* Title styles */
 .movies-title {
   text-align: center;
   color: #ffffff;
   margin-bottom: 30px;
-  width: 100%; /* Make the title span full width */
+  width: 100%;
 }
 
+/* List styles */
 .movies-list {
   list-style: none;
   padding: 0;
-  display: flex; /* Use flexbox for the list */
-  flex-wrap: wrap; /* Allow wrapping for items */
-  gap: 15px; /* Add a gap between cards */
-  justify-content: space-between; /* Distribute space evenly */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: space-between;
 }
 
+/* Card styles */
 .movie-card {
   background-color: #f9f9f9;
   border: 1px solid #eaeaea;
@@ -33,39 +39,45 @@
   margin-bottom: 15px;
   padding: 20px;
   transition: box-shadow 0.3s ease-in-out;
-  width: calc(50% - 15px); /* Adjust width to fit 2 cards per row with a gap */
+  width: calc(50% - 15px);
 }
 
+/* Card hover effect */
 .movie-card:hover {
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
+/* Header styles */
 .movie-header {
   cursor: pointer;
   margin-bottom: 10px;
-  display: flex; /* Use flexbox to align title and buttons */
-  align-items: center; /* Center items vertically */
+  display: flex;
+  align-items: center;
 }
 
+/* Title styles inside header */
 .movie-title {
   font-size: 20px;
   color: #0077cc;
   margin: 0;
-  flex-grow: 2; /* Allows the title to grow to fill more space */
+  flex-grow: 2;
 }
 
+/* Info paragraph styles (if needed) */
 .movie-info p {
   color: #666;
   margin: 5px 0;
 }
 
+/* Button container styles */
 .buttons {
-  flex-shrink: 1; /* Allows the buttons to shrink if necessary */
-  flex-grow: 0; /* Prevents the buttons from growing */
+  flex-shrink: 1;
+  flex-grow: 0;
   display: flex;
   justify-content: flex-end;
 }
 
+/* Button styles */
 .buttons button {
   background-color: #0077cc;
   border: none;
@@ -77,14 +89,29 @@
   transition: background-color 0.3s ease;
 }
 
+/* Button hover effect */
 .buttons button:hover {
   background-color: #005fa3;
 }
 
+/* Red delete button styles */
 .buttons button:first-child {
   background-color: #ff4136;
 }
 
+/* Red delete button hover effect */
 .buttons button:first-child:hover {
   background-color: #e82c20;
 }
+
+.input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  color: #999999;
+  font-size: 16px;
+  background: transparent;
+  outline: none;
+}
+
