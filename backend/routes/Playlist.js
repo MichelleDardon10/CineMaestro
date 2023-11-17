@@ -16,23 +16,23 @@ router.get("/byId/:id", async (req, res) => {
 
 router.post("/", async (req, res) => {
   const playlist = req.body;
-  await Playlist.create(playlist);
-  res.json(playlist);
+  const new_playlist = await Playlist.create(playlist);
+  res.status(201).json(new_playlist);
 });
 
 router.delete("/:id", async (req, res) => {
-    const playlistId = req.params.id;
-    try {
-        const playlist = await Playlist.findByPk(playlistId);
-        if (!playlist) {
-        return res.status(404).json({ message: 'Playlist not found' });
-        }
-        await playlist.destroy();
-        return res.status(204).send(); // No content response
-    } catch (error) {
-        console.error('Error deleting playlist:', error);
-        return res.status(500).json({ message: 'Internal server error' });
+  const playlistId = req.params.id;
+  try {
+    const playlist = await Playlist.findByPk(playlistId);
+    if (!playlist) {
+      return res.status(404).json({ message: "Playlist not found" });
     }
+    await playlist.destroy();
+    return res.status(200).send(); // No content response
+  } catch (error) {
+    console.error("Error deleting playlist:", error);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 });
 
 module.exports = router;
