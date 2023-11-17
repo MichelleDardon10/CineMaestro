@@ -35,3 +35,5 @@ test('renderiza Navbar correctamente', () => {
   // Verifica que la función de cierre de sesión haya sido llamada
   expect(mockLogout).toHaveBeenCalledTimes(1);
 });
+
+//pruebita

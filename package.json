@@ -1,0 +1,21 @@
+{
+  "name": "cinemaestro",
+  "version": "1.0.0",
+  "description": "Levantar el contenedor abriendo docker desktop y en /cinemaestro: docker-compose up -d\r luego cd backend y en la terminal: npm run devStart",
+  "main": "jest.config.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.23.3",
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.14.5",
+    "@testing-library/jest-dom": "^6.1.4",
+    "@testing-library/react": "^14.1.0",
+    "babel-jest": "^27.5.1",
+    "jest": "^27.4.7"
+  }
+}
