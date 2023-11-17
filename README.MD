@@ -7,10 +7,6 @@ luego cd backend y en la terminal: npm run devStart
 
 cd frontend, luego en la terminal: npm run dev
 
-## Para migrar base de datos
-
-Ir a backend (cd backend ) y correr: npx sequelize-cli db:migrate
-
 ## Para ejecutar system tests
 
 Instalar cypress: npm install cypress --save-dev
