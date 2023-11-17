@@ -17,3 +17,5 @@ module.exports = (sequelize, DataTypes) => {
 //prueba POR FAVOR SEÑOR
 
 //PRUEBA PRESENTACION FINAL
+
+//una vez mas
