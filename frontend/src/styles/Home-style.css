@@ -1,90 +1,77 @@
-* {
-  box-sizing: border-box;
-}
-.movies-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  display: flex; /* Add flex display */
-  flex-wrap: wrap; /* Wrap items to the next line when the row is full */
-  justify-content: space-between; /* Distribute space between the cards */
-}
+/* Home-style.css */
 
-.movies-title {
-  text-align: center;
-  color: #ffffff;
-  margin-bottom: 30px;
-  width: 100%; /* Make the title span full width */
+.movies-container {
+  max-width: 100%;
+  margin: 20px 0;
+  overflow-x: auto;
 }
 
 .movies-list {
-  list-style: none;
-  padding: 0;
-  display: flex; /* Use flexbox for the list */
-  flex-wrap: wrap; /* Allow wrapping for items */
-  gap: 15px; /* Add a gap between cards */
-  justify-content: space-between; /* Distribute space evenly */
+  display: flex;
+  gap: 20px;
+  padding: 10px;
 }
 
 .movie-card {
-  background-color: #f9f9f9;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  padding: 20px;
-  transition: box-shadow 0.3s ease-in-out;
-  width: calc(50% - 15px); /* Adjust width to fit 2 cards per row with a gap */
+  width: 300px; 
+  min-width: 200px; 
+  padding: 15px;
+  background-color: #343a40;
+  border: 2px solid #61dafb;
+  border-radius: 10px;
+  color: white;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
 .movie-card:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  background-color: #61dafb;
+  color: #282c34;
+  transform: scale(1.05);
 }
 
 .movie-header {
-  cursor: pointer;
-  margin-bottom: 10px;
-  display: flex; /* Use flexbox to align title and buttons */
-  align-items: center; /* Center items vertically */
+  flex-grow: 1;
 }
 
 .movie-title {
   font-size: 20px;
-  color: #0077cc;
   margin: 0;
-  flex-grow: 2; /* Allows the title to grow to fill more space */
+  cursor: pointer;
 }
 
-.movie-info p {
-  color: #666;
-  margin: 5px 0;
+.movie-info {
+  margin-top: 5px;
 }
 
 .buttons {
-  flex-shrink: 1; /* Allows the buttons to shrink if necessary */
-  flex-grow: 0; /* Prevents the buttons from growing */
   display: flex;
-  justify-content: flex-end;
+  gap: 10px;
 }
 
-.buttons button {
-  background-color: #0077cc;
+.delete-button,
+.view-button {
+  padding: 10px;
   border: none;
-  border-radius: 4px;
-  color: white;
+  border-radius: 5px;
   cursor: pointer;
-  padding: 10px 15px;
-  margin-left: 10px;
   transition: background-color 0.3s ease;
 }
 
-.buttons button:hover {
-  background-color: #005fa3;
+.delete-button {
+  background-color: #e53935;
+  color: #ffffff;
 }
 
-.buttons button:first-child {
-  background-color: #ff4136;
+.delete-button:hover {
+  background-color: #a11a1a;
 }
 
-.buttons button:first-child:hover {
-  background-color: #e82c20;
+.view-button {
+  background-color: #2196f3;
+  color: #ffffff;
+}
+
+.view-button:hover {
+  background-color: #1565c0;
 }
