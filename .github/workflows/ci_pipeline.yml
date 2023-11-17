@@ -34,7 +34,8 @@ jobs:
         run: npm install --force
 
       - name: Install Babel preset
-        run: npm install --save-dev @babel/preset-react --force
+        run: npm install @babel/preset-react --save-dev
 
       - name: Run tests in frontend
         run: npm test
+#probe
