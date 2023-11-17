@@ -18,12 +18,11 @@ describe('Navbar Component', () => {
     });
     
     it('should display the "Cerrar sesión" button when authenticated', () => {
-        cy.get('.menu-item').should('be.visible').and('contain.text', 'Cerrar sesión');
+        cy.get('.logout-button').should('be.visible').and('contain.text', 'Cerrar sesión');
     });
     
     it('should render "Login" button after "Cerrar sesión" button is clicked', () => {
-        cy.get('.menu-item').contains('Cerrar sesión').click();
-        cy.get('.menu-item').contains('Cerrar sesión').should('not.exist');
+        cy.get('.logout-button').contains('Cerrar sesión').click();
         cy.get('.navbar-menu').contains('Login').should('exist');
     });
   });

@@ -1,5 +1,5 @@
 
-describe('Prueba del componente Home', () => {
+describe('Home page', () => {
   beforeEach(() => {
     cy.visit('http://localhost:5173/login');
     cy.get('[id=user]').type('testuser');

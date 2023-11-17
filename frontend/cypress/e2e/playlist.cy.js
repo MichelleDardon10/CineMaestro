@@ -5,8 +5,8 @@ describe('Playlist Page', () => {
     });
   
     it('should display the Playlist Page', () => {
-      cy.get('.title-playlist').should('contain.text', 'My Playlists');
-      cy.get('.input').should('exist');
+      cy.get('.playlist-title').should('contain.text', 'My Playlists');
+      cy.get('.playlist-input').should('exist');
       cy.get('button').contains('Create Playlist').should('exist');
       cy.get('ul').should('exist');
     });
@@ -14,7 +14,7 @@ describe('Playlist Page', () => {
     it('should allow user to create a new playlist', () => {
       const playlistName = 'New Playlist';
   
-      cy.get('.input').type(playlistName);
+      cy.get('.playlist-input').type(playlistName);
       cy.get('button').contains('Create Playlist').click();
   
       cy.get('ul').contains(playlistName).should('exist');

@@ -11,15 +11,13 @@ function NameIdeas() {
   const { authState } = useContext(AuthContext);
 
   useEffect(() => {
-    // Realiza una solicitud GET para obtener la lista de películas
     axios
       .get("http://localhost:5174/nameideas")
       .then((response) => {
-        // Actualiza el estado con los datos de las películas
         setIdeas(response.data);
       })
       .catch((error) => {
-        console.error("Error al obtener las películas: ", error);
+        console.error("Error al obtener las ideas: ", error);
       });
   }, []);
 
@@ -31,12 +29,11 @@ function NameIdeas() {
           headers: { accessToken: localStorage.getItem("accessToken") },
         }
       );
-      console.log(response.data); // Maneja la respuesta de éxito según tus necesidades
+      console.log(response.data);
 
-      // Actualiza el estado de las películas después de borrar una película
       setIdeas((prevIdeas) => prevIdeas.filter((idea) => idea.id !== id));
     } catch (error) {
-      console.error("Error al borrar la película: ", error);
+      console.error("Error al borrar la idea: ", error);
     }
   };
 
@@ -47,7 +44,6 @@ function NameIdeas() {
         {
           title: newIdeaTitle,
         },
-
         {
           headers: {
             accessToken: localStorage.getItem("accessToken"),
@@ -64,32 +60,34 @@ function NameIdeas() {
   };
 
   return (
-    <div className="movies-container">
-      <h2 className="movies-title">
+    <div className="name-ideas-container">
+      <h2 className="name-ideas-title">
         <strong>IDEAS</strong>
       </h2>
-      <div>
-        <input className = "input"
+      <div className="input-container">
+        <input
+          className="name-ideas-input"
           type="text"
           placeholder="Ingrese su idea"
           value={newIdeaTitle}
           onChange={(e) => setNewIdeaTitle(e.target.value)}
         />
-
-        <button onClick={handleAddIdea}>Add Idea</button>
+        <button className="add-idea-button" onClick={handleAddIdea}>
+          Agregar Idea
+        </button>
       </div>
-      <ul className="movies-list">
+      <ul className="name-ideas-list">
         {ideas.map((idea) => (
-          <li key={idea.id} className="movie-card">
-            <div>
-              <div className="movie-header">
-                <p className="movie-title">{idea.title}</p>
-              </div>
+          <li key={idea.id} className="name-ideas-card">
+            <div className="idea-header">
+              <p className="idea-title-text">{idea.title}</p>
             </div>
-            <div className="buttons">
-              {/* Step 3: Render delete button based on username */}
+            <div className="idea-buttons">
               {authState.username === idea.username && (
-                <button onClick={() => handleDeleteIdea(idea.id)}>
+                <button
+                  className="delete-idea-button"
+                  onClick={() => handleDeleteIdea(idea.id)}
+                >
                   Borrar
                 </button>
               )}

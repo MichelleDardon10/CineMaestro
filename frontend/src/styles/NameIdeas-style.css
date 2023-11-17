@@ -1,117 +1,117 @@
-/* Reset styles for all elements */
-* {
+/* NameIdeasPage.css */
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.name-ideas-container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+
+  background: rgba(0, 0, 0, 0.5);
   box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
 }
 
-/* Container styles */
-.movies-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
+.name-ideas-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.input-container {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  margin-bottom: 20px;
 }
 
-/* Title styles */
-.movies-title {
-  text-align: center;
-  color: #ffffff;
-  margin-bottom: 30px;
-  width: 100%;
-}
-
-/* List styles */
-.movies-list {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  justify-content: space-between;
-}
-
-/* Card styles */
-.movie-card {
-  background-color: #f9f9f9;
-  border: 1px solid #eaeaea;
-  border-radius: 8px;
-  margin-bottom: 15px;
-  padding: 20px;
-  transition: box-shadow 0.3s ease-in-out;
-  width: calc(50% - 15px);
-}
-
-/* Card hover effect */
-.movie-card:hover {
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-/* Header styles */
-.movie-header {
-  cursor: pointer;
-  margin-bottom: 10px;
-  display: flex;
-  align-items: center;
-}
-
-/* Title styles inside header */
-.movie-title {
-  font-size: 20px;
-  color: #0077cc;
-  margin: 0;
-  flex-grow: 2;
-}
-
-/* Info paragraph styles (if needed) */
-.movie-info p {
-  color: #666;
-  margin: 5px 0;
-}
-
-/* Button container styles */
-.buttons {
-  flex-shrink: 1;
-  flex-grow: 0;
-  display: flex;
-  justify-content: flex-end;
-}
-
-/* Button styles */
-.buttons button {
-  background-color: #0077cc;
-  border: none;
-  border-radius: 4px;
-  color: white;
-  cursor: pointer;
-  padding: 10px 15px;
-  margin-left: 10px;
-  transition: background-color 0.3s ease;
-}
-
-/* Button hover effect */
-.buttons button:hover {
-  background-color: #005fa3;
-}
-
-/* Red delete button styles */
-.buttons button:first-child {
-  background-color: #ff4136;
-}
-
-/* Red delete button hover effect */
-.buttons button:first-child:hover {
-  background-color: #e82c20;
-}
-
-.input {
-  width: 100%;
+.name-ideas-input {
+  flex-grow: 1;
   padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-right: 10px;
+
   border: none;
   border-bottom: 1px solid #ffffff;
   color: #999999;
-  font-size: 16px;
   background: transparent;
   outline: none;
 }
 
+.add-idea-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.add-idea-button:hover {
+  background-color: #24792a;
+}
+
+.name-ideas-list {
+  list-style: none;
+  padding: 0;
+}
+
+.name-ideas-card {
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background-color: #343a40;
+  cursor: pointer;
+}
+
+.name-ideas-card:hover {
+  background-color: #747474;
+}
+
+.idea-header {
+  flex-grow: 1;
+}
+
+.idea-title-text {
+  font-size: 20px;
+  margin: 0;
+  color: #fff;
+}
+
+.idea-buttons {
+  display: flex;
+}
+
+.delete-idea-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #e53935;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.delete-idea-button:hover {
+  background-color: #a11a1a;
+}

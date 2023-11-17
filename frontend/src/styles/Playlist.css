@@ -1,28 +1,129 @@
-/* styles.css */
+/* PlaylistPage.css */
 
-/* Title style */
-.title-playlist {
-    color: white;
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
   }
-  
-  /* Remove button style */
-  .remove-button {
-    color: white;
-    background-color: red;
-    border: none;
-    cursor: pointer;
-    padding: 5px 10px;
-    border-radius: 5px;
-    margin-left: 10px;
+  100% {
+    opacity: 1;
   }
+}
 
-  .input {
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ffffff;
-    color: #999999;
-    font-size: 16px;
-    background: transparent;
-    outline: none;
-  }
+.playlist-container {
+  max-width: 800px;
+  margin: 20px auto;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+
+  background: rgba(0, 0, 0, 0.5);
+  box-sizing: border-box;
+  border-radius: 10px;
+  box-shadow: 0 15px 25px rgba(0, 0, 0, 0.6);
+}
+
+.playlist-title {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #fff;
+}
+
+.input-container {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.playlist-input {
+  flex-grow: 1;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  margin-right: 10px;
+
+  border: none;
+  border-bottom: 1px solid #ffffff;
+  color: #999999;
+  background: transparent;
+  outline: none;
+}
+
+.create-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.create-button:hover {
+  background-color: #24792a;
+}
+
+.playlist-list {
+  list-style: none;
+  padding: 0;
+}
+
+.playlist-item {
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  cursor: pointer;
+
+  background-color: #343a40;
+  cursor: pointer;
+}
+
+.playlist-item:hover {
+  background-color: #747474;
+}
+
+.playlist-name {
+  flex-grow: 1;
+  font-size: 20px;
+  margin: 0;
+  color: #fff;
+}
+
+.playlist-buttons {
+  display: flex;
+}
+
+.remove-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #e53935;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+  background-color: #a11a1a;
+}
+
+.see-button {
+  padding: 10px;
+  font-size: 16px;
+  background-color: #2196f3;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.see-button:hover {
+  background-color: #1565c0;
+}
