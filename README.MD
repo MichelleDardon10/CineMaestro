@@ -13,3 +13,9 @@ Instalar cypress: npm install cypress --save-dev
 
 Ir a frontend (cd frontend) y correr: npx cypress open
 luego en cypress ir a E2E Testing
+
+## Unit testing frontend
+
+1. cd frontend/ npm install
+
+2. cd frontend/ npm test
