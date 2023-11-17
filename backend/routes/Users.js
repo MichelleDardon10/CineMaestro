@@ -17,8 +17,7 @@ router.post("/", async (req, res) => {
 
   if (existingUser) {
     // If the username already exists, throw an error
-    res.json({ error: "Nombre no disponible" });
-    return;
+    return res.status(409).json({ error: "Nombre no disponible" });
   }
 
   bcrypt.hash(password, 10).then((hashpw) => {
@@ -27,7 +26,7 @@ router.post("/", async (req, res) => {
       password: hashpw,
     });
   });
-  res.json("FUNCIONA");
+  res.status(201).json({ message: "Usuario creado exitosamente" });
 });
 
 //Aqui se crea un token y se regresa si y solo si el usuario existe en la base de datos, osea que puede hacer login
