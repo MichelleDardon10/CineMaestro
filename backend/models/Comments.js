@@ -14,4 +14,4 @@ module.exports = (sequelize, DataTypes) => {
     return Comments;
   };
   
-//prueba
+//prueba POR FAVOR SEÑOR
