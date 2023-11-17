@@ -43,11 +43,11 @@ router.post("/", validateToken, async (req, res) => {
 // Marcar una película como vista (usuario autenticado)
 router.put("/:id/marcar-vista", validateToken, async (req, res) => {
   const { id } = req.params;
-  const { username } = req.user; // Obtén el nombre de usuario desde el token
+  const { username } = req.user;
 
   try {
     const updatedMovie = await Movies.update(
-      { vista: true },
+      { vista: req.body.vista }, // Utiliza el valor proporcionado en el cuerpo de la solicitud
       {
         where: {
           id: id,
@@ -55,6 +55,8 @@ router.put("/:id/marcar-vista", validateToken, async (req, res) => {
         },
       }
     );
+
+    console.log(updatedMovie);
 
     if (updatedMovie[0] === 1) {
       res.json({
@@ -71,6 +73,7 @@ router.put("/:id/marcar-vista", validateToken, async (req, res) => {
     res.status(500).json({ error: "Error al marcar la película como vista" });
   }
 });
+
 
 // Listar películas marcadas como "vistas" (usuario autenticado)
 router.get("/vistas", validateToken, async (req, res) => {

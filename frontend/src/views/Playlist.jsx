@@ -9,16 +9,15 @@ function PlaylistPage() {
   let navigate = useNavigate();
 
   useEffect(() => {
-    // Fetch the list of playlists from /playlist when the component mounts
     axios
       .get("http://localhost:5174/playlist")
       .then((response) => {
-        setPlaylists(response.data); // Assuming the response data is an array of playlist names
+        setPlaylists(response.data);
       })
       .catch((error) => {
         console.error("Error fetching playlists:", error);
       });
-  }, []); // The empty dependency array ensures this effect runs only once on mount
+  }, []);
 
   const handleCreatePlaylist = () => {
     if (newPlaylistName) {
@@ -32,7 +31,7 @@ function PlaylistPage() {
           axios
             .get("http://localhost:5174/playlist")
             .then((response) => {
-              setPlaylists(response.data); // Assuming the response data is an array of playlist names
+              setPlaylists(response.data);
             })
             .catch((error) => {
               console.error("Error fetching playlists:", error);
@@ -45,14 +44,13 @@ function PlaylistPage() {
   };
 
   const handleRemovePlaylist = (id) => {
-    // Send a DELETE request to the server to delete the playlist
     axios
       .delete(`http://localhost:5174/playlist/${id}`)
       .then((response) => {
         axios
           .get("http://localhost:5174/playlist")
           .then((response) => {
-            setPlaylists(response.data); // Assuming the response data is an array of playlist names
+            setPlaylists(response.data);
           })
           .catch((error) => {
             console.error("Error fetching playlists:", error);
@@ -65,22 +63,25 @@ function PlaylistPage() {
 
   return (
     <div>
-      <h1 className="title-playlist">My Playlists</h1>
+      <h1 className="playlist-title">My Playlists</h1>
 
       <div>
-        <input className="input"
+        <input
+          className="playlist-input"
           type="text"
           placeholder="Enter playlist name"
           value={newPlaylistName}
           onChange={(e) => setNewPlaylistName(e.target.value)}
         />
-        <button onClick={handleCreatePlaylist}>Create Playlist</button>
+        <button className="create-button" onClick={handleCreatePlaylist}>
+          Create Playlist
+        </button>
       </div>
 
       <ul>
         {playlists.map((playlist, index) => (
-          <li key={index}>
-            <span className="title-playlist">{playlist.title}</span>
+          <li key={index} className="playlist-item">
+            <span className="playlist-name">{playlist.title}</span>
             <button
               className="remove-button"
               onClick={() => handleRemovePlaylist(playlist.id)}
@@ -90,10 +91,10 @@ function PlaylistPage() {
             <button
               className="see-button"
               onClick={() => {
-                navigate(`/list/${movie.id}`);
+                navigate(`/list/${playlist.id}`);
               }}
             >
-              Ver
+              View
             </button>
           </li>
         ))}

@@ -18,9 +18,9 @@ describe('Name Ideas Page', () => {
     });
   
     it('should allow user to add an idea', () => {
-        cy.get('.input').type('Nueva Idea');
+        cy.get('.name-ideas-input').type('Nueva Idea');
         
-        cy.get('button').contains('Add Idea').click();
+        cy.get('button').contains('Agregar Idea').click();
         
         cy.contains('Nueva Idea').should('exist');
       });

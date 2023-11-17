@@ -11,8 +11,11 @@ cd frontend, luego en la terminal: npm run dev
 
 Instalar cypress: npm install cypress --save-dev
 
-Ir a frontend (cd frontend) y correr: npx cypress open
+1. Ir a frontend (cd frontend) y correr: npx cypress open
 luego en cypress ir a E2E Testing
+
+2. Correr en la terminal: Ir a frontend (cd frontend)
+luego: npx cypress run --spec "$(Get-Content .\sysTests.txt -Raw)"
 
 ## Unit testing frontend
 
@@ -20,4 +23,4 @@ luego en cypress ir a E2E Testing
 
 2. cd frontend/ npm test
 
-Prueba CI pipeline
+
