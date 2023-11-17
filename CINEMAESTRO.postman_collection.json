@@ -1,0 +1,841 @@
+{
+	"info": {
+		"_postman_id": "d34f2318-8acb-4a80-a8b7-7d4e7e23ce4b",
+		"name": "CINEMAESTRO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "30135503",
+		"_collection_link": "https://cinemaestro.postman.co/workspace/cineMaestro~54927586-8ffa-4c5b-84b7-c8a6ac14cd3c/collection/30135503-d34f2318-8acb-4a80-a8b7-7d4e7e23ce4b?action=share&source=collection_link&creator=30135503"
+	},
+	"item": [
+		{
+			"name": "RegisterUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/auth",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"auth"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UserLogin",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([200, 201]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Se creo una cuenta con el nombre 'TestAccount'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"TestAccount\");\r",
+							"});\r",
+							"\r",
+							"jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"token = jsonData.token\r",
+							"id = jsonData.id\r",
+							"\r",
+							"pm.environment.set(\"accessToken\", token);\r",
+							"pm.environment.set(\"userId\", id);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlBhY28iLCJpZCI6MiwiaWF0IjoxNjk4MzY5MTExfQ.gS_7ORXcQTczddNwDMQ5lBlLUyCbtcQZ0K-mNWyJteY",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"{{username}}\",\r\n    \"password\" : \"{{password}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/auth/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateMovies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Se creo una pelicula con el nombre 'Avengers2'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Avengers2\");\r",
+							"});\r",
+							"\r",
+							"jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"\r",
+							"movieId = jsonData.pelicula.id\r",
+							"\r",
+							"pm.environment.set(\"movieId\", movieId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"titulo\": \"Avengers2\",\r\n  \"director\": \"Stan lee\",\r\n  \"genero\": \"Accion\",\r\n  \"fechaEstreno\": \"2023-10-15\",\r\n    \"UserId\": {{userId}}\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Regresa el comentario que fue enviado\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Me gustó mucho la pelicula\");\r",
+							"});\r",
+							"\r",
+							"jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"commentId = jsonData.id\r",
+							"\r",
+							"pm.environment.set(\"commentId\", commentId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"comment\": \"Me gustó mucho la pelicula!\",\r\n    \"username\": \"{{username}}\",\r\n    \"MovieId\": {{movieId}},\r\n    \"UserId\": {{userId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/comments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"comments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "MovieRating",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"ratingId = jsonData.id\r",
+							"\r",
+							"pm.environment.set(\"ratingId\", ratingId);\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"rating\": 8,\r\n    \"MovieId\": {{movieId}},\r\n    \"UserId\": {{userId}}\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/ratings",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"ratings"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateIdea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Crea idea con el nombre de 'Prueba de idea'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Prueba de idea\");\r",
+							"});\r",
+							"\r",
+							"jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"ideaId = jsonData.newIdea.id\r",
+							"\r",
+							"pm.environment.set(\"ideaId\", ideaId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"title\": \"Prueba de idea\",\r\n    \"username\": \"{{username}}\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/nameideas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"nameideas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreatePlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"pm.test(\"Successful POST request\", function () {\r",
+							"    pm.expect(pm.response.code).to.be.oneOf([201, 202]);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"pm.test(\"Crea playlist con el nombre de test_test\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"test_test\");\r",
+							"});\r",
+							"\r",
+							"jsonData = JSON.parse(responseBody)\r",
+							"\r",
+							"playlistId = jsonData.id\r",
+							"\r",
+							"pm.environment.set(\"playlistId\", playlistId);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"test_test\",\r\n    \"title\": \"title_test\",\r\n    \"username\": \"{{username}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5174/playlist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMovies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/movies",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"movies"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetMovieById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/movies/byId/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"movies",
+						"byId",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetCommentsById",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/comments/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"comments",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllMovieRatings",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/ratings/byId/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"ratings",
+						"byId",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetIdeas",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/nameideas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"nameideas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetPlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5174/playlist",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"playlist"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteComment",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/comments/{{commentId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"comments",
+						"{{commentId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteRating",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/ratings/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"ratings",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteMovies",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/movies/{{movieId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"movies",
+						"{{movieId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteIdea",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/nameideas/{{ideaId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"nameideas",
+						"{{ideaId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePlaylist",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/playlist/{{playlistId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"playlist",
+						"{{playlistId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteAccount",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "accessToken",
+						"value": "{{accessToken}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:5174/auth/{{userId}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5174",
+					"path": [
+						"auth",
+						"{{userId}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
