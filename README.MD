@@ -19,3 +19,5 @@ luego en cypress ir a E2E Testing
 1. cd frontend/ npm install
 
 2. cd frontend/ npm test
+
+Prueba CI pipeline
